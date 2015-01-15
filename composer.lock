@@ -1,0 +1,154 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "8d7ae179c1c59b2ea77e502aafa0d8c4",
+    "packages": [
+        {
+            "name": "sciactive/nymph",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sciactive/nymph.git",
+                "reference": "eb57c6d52451789284512f0aba00e6c80a972806"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sciactive/nymph/zipball/eb57c6d52451789284512f0aba00e6c80a972806",
+                "reference": "eb57c6d52451789284512f0aba00e6c80a972806",
+                "shasum": ""
+            },
+            "require": {
+                "sciactive/requirephp": "~1.2"
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Nymph\\": "src/"
+                },
+                "psr-4": {
+                    "Nymph\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL"
+            ],
+            "authors": [
+                {
+                    "name": "Hunter Perrin",
+                    "email": "hunter@sciactive.com",
+                    "homepage": "https://github.com/hperrin",
+                    "role": "Developer"
+                }
+            ],
+            "description": "An object relational mapper with PHP and JavaScript interfaces.",
+            "homepage": "http://nymph.io/",
+            "keywords": [
+                "Object Relational Mapping",
+                "Object relational mapper",
+                "mysql",
+                "object database",
+                "orm",
+                "postgres",
+                "postgresql"
+            ],
+            "time": "2014-11-04 00:00:00"
+        },
+        {
+            "name": "sciactive/pform",
+            "version": "3.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sciactive/pform.git",
+                "reference": "6ca56a092002974ec89e34a3030b5513fa364904"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sciactive/pform/zipball/6ca56a092002974ec89e34a3030b5513fa364904",
+                "reference": "6ca56a092002974ec89e34a3030b5513fa364904",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL"
+            ],
+            "authors": [
+                {
+                    "name": "Hunter Perrin",
+                    "email": "hunter@sciactive.com",
+                    "homepage": "https://github.com/hperrin",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Pixel perfect CSS form layouts.",
+            "homepage": "http://sciactive.com/pform/",
+            "keywords": [
+                "css",
+                "form layout",
+                "html"
+            ],
+            "time": "2014-12-21 00:00:00"
+        },
+        {
+            "name": "sciactive/requirephp",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sciactive/requirephp.git",
+                "reference": "bb5cfc994918a47ebe96aab93d969cb16a4e49e0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sciactive/requirephp/zipball/bb5cfc994918a47ebe96aab93d969cb16a4e49e0",
+                "reference": "bb5cfc994918a47ebe96aab93d969cb16a4e49e0",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "SciActive\\": "src/"
+                },
+                "psr-4": {
+                    "SciActive\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL"
+            ],
+            "authors": [
+                {
+                    "name": "Hunter Perrin",
+                    "email": "hunter@sciactive.com",
+                    "homepage": "https://github.com/hperrin",
+                    "role": "Developer"
+                }
+            ],
+            "description": "An implementation of dependency injection (like RequireJS) in PHP.",
+            "homepage": "http://requirephp.org/",
+            "keywords": [
+                "amd",
+                "dependency injection",
+                "dependency injector",
+                "service location",
+                "service locator"
+            ],
+            "time": "2014-11-04 00:00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}

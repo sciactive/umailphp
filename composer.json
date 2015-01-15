@@ -1,0 +1,52 @@
+{
+	"name": "sciactive/umailphp",
+	"description": "A PHP email templating system.",
+	"version": "0.0.0alpha1",
+	"time": "2015-01-14",
+	"homepage": "http://umailphp.org/",
+	"type": "library",
+	"authors": [
+		{
+			"name": "Hunter Perrin",
+			"email": "hunter@sciactive.com",
+			"homepage": "https://github.com/hperrin",
+			"role": "Developer"
+		}
+	],
+	"keywords": [
+		"email",
+		"templating"
+	],
+	"license": "LGPL",
+	"support": {
+		"issues": "https://github.com/sciactive/umailphp/issues",
+		"wiki": "https://github.com/sciactive/umailphp/wiki",
+		"source": "https://github.com/sciactive/umailphp"
+	},
+	"archive": {
+		"exclude": [
+			"**/.*",
+			".travis.yml",
+			"node_modules",
+			"bower_components",
+			"examples",
+			"testing",
+			"lib",
+			"vendor",
+			"bower.json"
+		]
+	},
+	"autoload": {
+		"psr-0": {
+			"µMailPHP\\": "src/"
+		},
+		"psr-4": {
+			"µMailPHP\\": "src/"
+		}
+	},
+	"require": {
+		"sciactive/requirephp": "~1.2",
+        "sciactive/nymph": "~1.2",
+        "sciactive/pform": "~3.2"
+	}
+}

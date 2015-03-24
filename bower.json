@@ -15,7 +15,7 @@
     "composer.lock"
   ],
   "dependencies": {
-    "pform": "https://github.com/sciactive/pform.git#master",
+    "pform": "~3.2",
     "nymph-client": "https://github.com/sciactive/nymph-client.git#master"
   }
 }

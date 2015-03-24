@@ -86,7 +86,7 @@ class Mail {
 			throw new \InvalidArgumentException('Mail definition is required.');
 		}
 
-		$config = \SciActive\R::_('µMailPHPConfig');
+		$config = \SciActive\RequirePHP::_('µMailPHPConfig');
 
 		// Format recipient.
 		if ($recipient && is_string($recipient)) {
@@ -554,7 +554,7 @@ class Mail {
 			return false;
 		}
 
-		$config = \SciActive\R::_('µMailPHPConfig');
+		$config = \SciActive\RequirePHP::_('µMailPHPConfig');
 
 		// Headers that must be in the sent message.
 		$required_headers = [];

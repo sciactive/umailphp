@@ -6,7 +6,7 @@ include '../vendor/autoload.php';
 include '../src/autoload.php';
 
 // µMailPHP's config.
-\SciActive\R::_('µMailPHPConfig', [], function(){
+\SciActive\RequirePHP::_('µMailPHPConfig', [], function(){
 	$config = include('../conf/defaults.php');
 	$config->site_name['value'] = 'µMailPHP Example Site';
 	$config->site_link['value'] = 'http://localhost/umailphp/';
@@ -20,6 +20,6 @@ include '../src/autoload.php';
 // This is how you enter the setup app.
 include 'UserVerifyMail.php'; // Make sure all of your definition classes are loaded.
 $baseURL = '../'; // This is the URL of the µMailPHP root.
-$sciactiveBaseURL = '../vendor/sciactive/'; // This is the URL of the SciActive libraries.
+$sciactiveBaseURL = '../bower_components/'; // This is the URL of the SciActive libraries.
 $restEndpoint = 'rest.php'; // This is the URL of the Nymph endpoint.
 include '../src/setup.php'; // And this will load the µMailPHP setup app.

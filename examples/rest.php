@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 require '../vendor/autoload.php';
 require '../src/autoload.php';
 
-\SciActive\R::_('NymphConfig', [], function(){
+\SciActive\RequirePHP::_('NymphConfig', [], function(){
 	$nymph_config = include(__DIR__.DIRECTORY_SEPARATOR.'../vendor/sciactive/nymph/conf/defaults.php');
 
 	$nymph_config->MySQL->database['value'] = 'nymph_test';

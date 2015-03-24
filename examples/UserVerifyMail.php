@@ -7,7 +7,6 @@
 class UserVerifyMail extends \µMailPHP\Definition {
 	public static $cname = 'Verify Email';
 	public static $description = 'This email is sent to a new user to let them verify their address.';
-	public static $view = 'mails/verify_email';
 	public static $expectsRecipient = true;
 	public static $unsubscribe = false;
 	public static $macros = [

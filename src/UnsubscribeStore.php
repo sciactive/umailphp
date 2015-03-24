@@ -24,7 +24,7 @@ class UnsubscribeStore {
 	private $db;
 
 	public function __construct() {
-		$config = \SciActive\R::_('µMailPHPConfig');
+		$config = \SciActive\RequirePHP::_('µMailPHPConfig');
 
 		// Get the DB.
 		$filename = $config->unsubscribe_db['value'];

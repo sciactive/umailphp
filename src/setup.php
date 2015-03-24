@@ -16,7 +16,7 @@ foreach ($classes as $key => $cur_class) {
 	}
 }
 
-$config = \SciActive\R::_('µMailPHPConfig');
+$config = \SciActive\RequirePHP::_('µMailPHPConfig');
 $examples = [
 	'site_name' => $config->site_name['value'],
 	'site_link' => $config->site_link['value'],
@@ -53,8 +53,8 @@ $examples = [
 			Examples = <?php echo json_encode($examples); ?>;
 			Tilmeld = <?php echo json_encode(class_exists('\Tilmeld\User')); ?>;
 		</script>
-		<script src="<?php echo htmlspecialchars($sciactiveBaseURL); ?>nymph/src/Nymph.js"></script>
-		<script src="<?php echo htmlspecialchars($sciactiveBaseURL); ?>nymph/src/Entity.js"></script>
+		<script src="<?php echo htmlspecialchars($sciactiveBaseURL); ?>nymph-client/src/Nymph.js"></script>
+		<script src="<?php echo htmlspecialchars($sciactiveBaseURL); ?>nymph-client/src/Entity.js"></script>
 		<script src="<?php echo htmlspecialchars($baseURL); ?>/src/Rendition.js"></script>
 		<script src="<?php echo htmlspecialchars($baseURL); ?>/src/Template.js"></script>
 

@@ -1,0 +1,21 @@
+{
+  "name": "umailphp",
+  "description": "A PHP email templating system.",
+  "version": "1.0.0-alpha.1",
+  "authors": [
+    "Hunter Perrin <hunter@sciactive.com>"
+  ],
+  "main": "src/setupApp.js",
+  "license": "LGPL",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "composer.json",
+    "composer.lock"
+  ],
+  "dependencies": {
+    "pform": "https://github.com/sciactive/pform.git#master",
+    "nymph-client": "https://github.com/sciactive/nymph-client.git#master"
+  }
+}

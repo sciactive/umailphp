@@ -4,24 +4,24 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8d7ae179c1c59b2ea77e502aafa0d8c4",
+    "hash": "40f15f7b08a06b1907e4032b2a2d8326",
     "packages": [
         {
-            "name": "sciactive/nymph",
-            "version": "1.2.0",
+            "name": "sciactive/nymph-server",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/sciactive/nymph.git",
-                "reference": "eb57c6d52451789284512f0aba00e6c80a972806"
+                "url": "https://github.com/sciactive/nymph-server.git",
+                "reference": "7979b62bfcb990b1a47c91af1e44cf179d4ce151"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sciactive/nymph/zipball/eb57c6d52451789284512f0aba00e6c80a972806",
-                "reference": "eb57c6d52451789284512f0aba00e6c80a972806",
+                "url": "https://api.github.com/repos/sciactive/nymph-server/zipball/7979b62bfcb990b1a47c91af1e44cf179d4ce151",
+                "reference": "7979b62bfcb990b1a47c91af1e44cf179d4ce151",
                 "shasum": ""
             },
             "require": {
-                "sciactive/requirephp": "~1.2"
+                "sciactive/requirephp": "~1.3"
             },
             "require-dev": {
                 "codeclimate/php-test-reporter": "dev-master"
@@ -47,7 +47,7 @@
                     "role": "Developer"
                 }
             ],
-            "description": "An object relational mapper with PHP and JavaScript interfaces.",
+            "description": "Server side Nymph files.",
             "homepage": "http://nymph.io/",
             "keywords": [
                 "Object Relational Mapping",
@@ -58,56 +58,20 @@
                 "postgres",
                 "postgresql"
             ],
-            "time": "2014-11-04 00:00:00"
-        },
-        {
-            "name": "sciactive/pform",
-            "version": "3.2.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/sciactive/pform.git",
-                "reference": "6ca56a092002974ec89e34a3030b5513fa364904"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/sciactive/pform/zipball/6ca56a092002974ec89e34a3030b5513fa364904",
-                "reference": "6ca56a092002974ec89e34a3030b5513fa364904",
-                "shasum": ""
-            },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "LGPL"
-            ],
-            "authors": [
-                {
-                    "name": "Hunter Perrin",
-                    "email": "hunter@sciactive.com",
-                    "homepage": "https://github.com/hperrin",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Pixel perfect CSS form layouts.",
-            "homepage": "http://sciactive.com/pform/",
-            "keywords": [
-                "css",
-                "form layout",
-                "html"
-            ],
-            "time": "2014-12-21 00:00:00"
+            "time": "2015-03-24 18:18:53"
         },
         {
             "name": "sciactive/requirephp",
-            "version": "1.2.0",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sciactive/requirephp.git",
-                "reference": "bb5cfc994918a47ebe96aab93d969cb16a4e49e0"
+                "reference": "3147a999d1f9a1d880223603a9d0a848334ee587"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sciactive/requirephp/zipball/bb5cfc994918a47ebe96aab93d969cb16a4e49e0",
-                "reference": "bb5cfc994918a47ebe96aab93d969cb16a4e49e0",
+                "url": "https://api.github.com/repos/sciactive/requirephp/zipball/3147a999d1f9a1d880223603a9d0a848334ee587",
+                "reference": "3147a999d1f9a1d880223603a9d0a848334ee587",
                 "shasum": ""
             },
             "type": "library",
@@ -140,13 +104,15 @@
                 "service location",
                 "service locator"
             ],
-            "time": "2014-11-04 00:00:00"
+            "time": "2015-02-19 00:00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "sciactive/nymph-server": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

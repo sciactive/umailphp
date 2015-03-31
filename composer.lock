@@ -4,20 +4,20 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "40f15f7b08a06b1907e4032b2a2d8326",
+    "hash": "7df81cade9f3c6558464dfca06ee9e80",
     "packages": [
         {
             "name": "sciactive/nymph-server",
-            "version": "dev-master",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sciactive/nymph-server.git",
-                "reference": "7979b62bfcb990b1a47c91af1e44cf179d4ce151"
+                "reference": "dd60d50028435837d9bf79573c2a5be2436dd5e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sciactive/nymph-server/zipball/7979b62bfcb990b1a47c91af1e44cf179d4ce151",
-                "reference": "7979b62bfcb990b1a47c91af1e44cf179d4ce151",
+                "url": "https://api.github.com/repos/sciactive/nymph-server/zipball/dd60d50028435837d9bf79573c2a5be2436dd5e8",
+                "reference": "dd60d50028435837d9bf79573c2a5be2436dd5e8",
                 "shasum": ""
             },
             "require": {
@@ -47,18 +47,19 @@
                     "role": "Developer"
                 }
             ],
-            "description": "Server side Nymph files.",
+            "description": "Powerful object data storage and querying for collaborative web apps.",
             "homepage": "http://nymph.io/",
             "keywords": [
                 "Object Relational Mapping",
                 "Object relational mapper",
                 "mysql",
+                "object data store",
                 "object database",
                 "orm",
                 "postgres",
                 "postgresql"
             ],
-            "time": "2015-03-24 18:18:53"
+            "time": "2015-03-27 00:00:00"
         },
         {
             "name": "sciactive/requirephp",
@@ -110,9 +111,7 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "sciactive/nymph-server": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

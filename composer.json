@@ -46,6 +46,6 @@
 	},
 	"require": {
 		"sciactive/requirephp": "~1.3",
-        "sciactive/nymph-server": "dev-master"
+        "sciactive/nymph-server": "~1.4"
 	}
 }

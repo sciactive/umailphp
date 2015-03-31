@@ -75,7 +75,7 @@ class Mail {
 
 	/**
 	 * @param \µMailPHP\Definition The name of the mail definition class.
-	 * @param string|null $recipient The recipient's email address. If left null, the rendition must have a recipient.
+	 * @param mixed $recipient The recipient's email address, or a recipient object. If left null, the rendition must have a recipient.
 	 * @param array $macros An associative array of macros. These override macros from the definition.
 	 * @param string|null $sender The sender's email address. If left null, the rendition or default sender will be used.
 	 * @param \µMailPHP\Rendition An optional rendition. If left null, the latest ready rendition will be used. If false, no rendition will be used.
@@ -289,21 +289,21 @@ class Mail {
 				$cur_field = str_replace('#to_email#', htmlspecialchars(isset($recipient->email) ? $recipient->email : ''), $cur_field);
 			}
 			// Current User with Tilmeld.
-			if (class_exists('\Tilmeld\User')) {
+			if (class_exists('\Tilmeld\User') && \Tilmeld\User::current()) {
 				if (strpos($cur_field, '#username#') !== false) {
-					$cur_field = str_replace('#username#', htmlspecialchars($_SESSION['user']->username), $cur_field);
+					$cur_field = str_replace('#username#', htmlspecialchars(\Tilmeld\User::current()->username), $cur_field);
 				}
 				if (strpos($cur_field, '#name#') !== false) {
-					$cur_field = str_replace('#name#', htmlspecialchars($_SESSION['user']->name), $cur_field);
+					$cur_field = str_replace('#name#', htmlspecialchars(\Tilmeld\User::current()->name), $cur_field);
 				}
 				if (strpos($cur_field, '#first_name#') !== false) {
-					$cur_field = str_replace('#first_name#', htmlspecialchars($_SESSION['user']->name_first), $cur_field);
+					$cur_field = str_replace('#first_name#', htmlspecialchars(\Tilmeld\User::current()->name_first), $cur_field);
 				}
 				if (strpos($cur_field, '#last_name#') !== false) {
-					$cur_field = str_replace('#last_name#', htmlspecialchars($_SESSION['user']->name_last), $cur_field);
+					$cur_field = str_replace('#last_name#', htmlspecialchars(\Tilmeld\User::current()->name_last), $cur_field);
 				}
 				if (strpos($cur_field, '#email#') !== false) {
-					$cur_field = str_replace('#email#', htmlspecialchars($_SESSION['user']->email), $cur_field);
+					$cur_field = str_replace('#email#', htmlspecialchars(\Tilmeld\User::current()->email), $cur_field);
 				}
 			}
 			// Date/Time
@@ -681,5 +681,410 @@ class Mail {
 			throw new \Exception("Error formatting date: $e");
 		}
 		return $date->format($format);
+	}
+
+	/**
+	 * Format a date range into a human understandable phrase.
+	 *
+	 * $format is built using macros, which are substrings replaced by the
+	 * corresponding number of units. There are singular macros, such as #year#,
+	 * which are used if the number of that unit is 1. For example, if the range
+	 * is 1 year and both #year# and #years# are present, #year# will be used
+	 * and #years# will be ignored. This allows you to use a different
+	 * description for each one. You accomplish this by surrounding the macro
+	 * and its description in curly brackets. If the unit is 0, everything in
+	 * that curly bracket will be removed. This allows you to place both #year#
+	 * and #years# and always end up with the right one.
+	 *
+	 * Since the units in curly brackets that equal 0 are removed, you can
+	 * include as many as you want and only the relevant ones will be used. If
+	 * you choose not to include one, such as year, then the next available one
+	 * will include the time that would have been placed in it. For example, if
+	 * the time range is 2 years, but you only include months, then months will
+	 * be set to 24.
+	 *
+	 * After formatting, any leading and trailing whitespace is trimmed before
+	 * the result is returned.
+	 *
+	 * $format can contain the following macros:
+	 *
+	 * - #years# - The number of years.
+	 * - #year# - The number 1 if applicable.
+	 * - #months# - The number of months.
+	 * - #month# - The number 1 if applicable.
+	 * - #weeks# - The number of weeks.
+	 * - #week# - The number 1 if applicable.
+	 * - #days# - The number of days.
+	 * - #day# - The number 1 if applicable.
+	 * - #hours# - The number of hours.
+	 * - #hour# - The number 1 if applicable.
+	 * - #minutes# - The number of minutes.
+	 * - #minute# - The number 1 if applicable.
+	 * - #seconds# - The number of seconds.
+	 * - #second# - The number 1 if applicable.
+	 *
+	 * If $format is left null, it defaults to the following:
+	 *
+	 * "{#years# years}{#year# year} {#months# months}{#month# month} {#days# days}{#day# day} {#hours# hours}{#hour# hour} {#minutes# minutes}{#minute# minute} {#seconds# seconds}{#second# second}"
+	 *
+	 * Here are some examples of formats and what would be outputted given a
+	 * time range of 2 years 5 months 1 day and 4 hours. (These values were
+	 * calculated on Fri Oct 14 2011 in San Diego, which has DST. 2012 is a leap
+	 * year.)
+	 *
+	 * - "#years# years {#days# days}{#day# day}" - 2 years 152 days
+	 * - "{#months# months}{#month# month} {#days# days}{#day# day}" - 29 months 1 day
+	 * - "{#weeks# weeks}{#week# week} {#days# days}{#day# day}" - 126 weeks 1 day
+	 * - "#days# days #hours# hours #minutes# minutes" - 883 days 4 hours 0 minutes
+	 * - "{#minutes#min} {#seconds#sec}" - 1271760min
+	 * - "#seconds#" - 76305600
+	 *
+	 * @param int $startTimestamp The timestamp of the beginning of the date range.
+	 * @param int $endTimestamp The timestamp of the end of the date range.
+	 * @param string $format The format to use. See the function description for details on the format.
+	 * @param DateTimeZone|string|null $timezone The timezone to use for formatting. Defaults to date_default_timezone_get().
+	 * @return string The formatted date range.
+	 */
+	public function formatDateRange($startTimestamp, $endTimestamp, $format = null, $timezone = null) {
+		if (!$format) {
+			$format = '{#years# years}{#year# year} {#months# months}{#month# month} {#days# days}{#day# day} {#hours# hours}{#hour# hour} {#minutes# minutes}{#minute# minute} {#seconds# seconds}{#second# second}';
+		}
+
+		// If it's a negative range, flip the values.
+		$negative = ($endTimestamp < $startTimestamp) ? '-' : '';
+		if ($negative == '-') {
+			$tmp = $endTimestamp;
+			$endTimestamp = $startTimestamp;
+			$startTimestamp = $tmp;
+		}
+		// Create a date object from the timestamp.
+		try {
+			$start_date = new DateTime(gmdate('c', (int) $startTimestamp));
+			$end_date = new DateTime(gmdate('c', (int) $endTimestamp));
+			if (isset($timezone)) {
+				if ((object) $timezone !== $timezone) {
+					$timezone = new DateTimeZone($timezone);
+				}
+				$start_date->setTimezone($timezone);
+				$end_date->setTimezone($timezone);
+			} else {
+				$start_date->setTimezone(new DateTimeZone(date_default_timezone_get()));
+				$end_date->setTimezone(new DateTimeZone(date_default_timezone_get()));
+			}
+		} catch (Exception $e) {
+			return '';
+		}
+
+		if (strpos($format, '#year#') !== false || strpos($format, '#years#') !== false) {
+			// Calculate number of years between the two dates.
+			$years = (int) $end_date->format('Y') - (int) $start_date->format('Y');
+			// Be sure we didn't go too far.
+			$test_date = clone $start_date;
+			$test_date->modify('+'.$years.' years');
+			$test_timestamp = (int) $test_date->format('U');
+			if ($test_timestamp > $endTimestamp) {
+				$years--;
+			}
+			if (strpos($format, '#year#') !== false && $years == 1) {
+				$format = preg_replace('/\{?([^{}]*)#year#([^{}]*)\}?/s', '${1}'.$negative.$years.'${2}', $format);
+				$format = preg_replace('/\{([^{}]*)#years#([^{}]*)\}/s', '', $format);
+			} elseif (strpos($format, '#years#') !== false) {
+				if ($years <> 0) {
+					$format = preg_replace('/\{?([^{}]*)#years#([^{}]*)\}?/s', '${1}'.$negative.$years.'${2}', $format);
+				} else {
+					$format = preg_replace(array('/\{([^{}]*)#years#([^{}]*)\}/s', '/#years#/'), array('', '0'), $format);
+				}
+				$format = preg_replace('/\{([^{}]*)#year#([^{}]*)\}/s', '', $format);
+			}
+			$start_date->modify('+'.$years.' years');
+			$startTimestamp = (int) $start_date->format('U');
+		}
+
+		if (strpos($format, '#month#') !== false || strpos($format, '#months#') !== false) {
+			// Calculate number of months.
+			$years = (int) $end_date->format('Y') - (int) $start_date->format('Y');
+			$months = ($years * 12) + ((int) $end_date->format('n') - (int) $start_date->format('n'));
+			// Be sure we didn't go too far.
+			$test_date = clone $start_date;
+			$test_date->modify('+'.$months.' months');
+			$test_timestamp = (int) $test_date->format('U');
+			if ($test_timestamp > $endTimestamp) {
+				$months--;
+			}
+			if (strpos($format, '#month#') !== false && $months == 1) {
+				$format = preg_replace('/\{?([^{}]*)#month#([^{}]*)\}?/s', '${1}'.$negative.$months.'${2}', $format);
+				$format = preg_replace('/\{([^{}]*)#months#([^{}]*)\}/s', '', $format);
+			} elseif (strpos($format, '#months#') !== false) {
+				if ($months <> 0) {
+					$format = preg_replace('/\{?([^{}]*)#months#([^{}]*)\}?/s', '${1}'.$negative.$months.'${2}', $format);
+				} else {
+					$format = preg_replace(array('/\{([^{}]*)#months#([^{}]*)\}/s', '/#months#/'), array('', '0'), $format);
+				}
+				$format = preg_replace('/\{([^{}]*)#month#([^{}]*)\}/s', '', $format);
+			}
+			$start_date->modify('+'.$months.' months');
+			$startTimestamp = (int) $start_date->format('U');
+		}
+
+		if (strpos($format, '#week#') !== false || strpos($format, '#weeks#') !== false) {
+			// Calculate number of weeks.
+			$weeks = floor(($endTimestamp - $startTimestamp) / 604800);
+			// Be sure we didn't go too far.
+			$test_date = clone $start_date;
+			$test_date->modify('+'.$weeks.' weeks');
+			$test_timestamp = (int) $test_date->format('U');
+			if ($test_timestamp > $endTimestamp) {
+				$weeks--;
+			}
+			if (strpos($format, '#week#') !== false && $weeks == 1) {
+				$format = preg_replace('/\{?([^{}]*)#week#([^{}]*)\}?/s', '${1}'.$negative.$weeks.'${2}', $format);
+				$format = preg_replace('/\{([^{}]*)#weeks#([^{}]*)\}/s', '', $format);
+			} elseif (strpos($format, '#weeks#') !== false) {
+				if ($weeks <> 0) {
+					$format = preg_replace('/\{?([^{}]*)#weeks#([^{}]*)\}?/s', '${1}'.$negative.$weeks.'${2}', $format);
+				} else {
+					$format = preg_replace(array('/\{([^{}]*)#weeks#([^{}]*)\}/s', '/#weeks#/'), array('', '0'), $format);
+				}
+				$format = preg_replace('/\{([^{}]*)#week#([^{}]*)\}/s', '', $format);
+			}
+			$start_date->modify('+'.$weeks.' weeks');
+			$startTimestamp = (int) $start_date->format('U');
+		}
+
+		if (strpos($format, '#day#') !== false || strpos($format, '#days#') !== false) {
+			// Calculate number of days.
+			$days = floor(($endTimestamp - $startTimestamp) / 86400);
+			// Be sure we didn't go too far.
+			$test_date = clone $start_date;
+			$test_date->modify('+'.$days.' days');
+			$test_timestamp = (int) $test_date->format('U');
+			if ($test_timestamp > $endTimestamp) {
+				$days--;
+			}
+			if (strpos($format, '#day#') !== false && $days == 1) {
+				$format = preg_replace('/\{?([^{}]*)#day#([^{}]*)\}?/s', '${1}'.$negative.$days.'${2}', $format);
+				$format = preg_replace('/\{([^{}]*)#days#([^{}]*)\}/s', '', $format);
+			} elseif (strpos($format, '#days#') !== false) {
+				if ($days <> 0) {
+					$format = preg_replace('/\{?([^{}]*)#days#([^{}]*)\}?/s', '${1}'.$negative.$days.'${2}', $format);
+				} else {
+					$format = preg_replace(array('/\{([^{}]*)#days#([^{}]*)\}/s', '/#days#/'), array('', '0'), $format);
+				}
+				$format = preg_replace('/\{([^{}]*)#day#([^{}]*)\}/s', '', $format);
+			}
+			$start_date->modify('+'.$days.' days');
+			$startTimestamp = (int) $start_date->format('U');
+		}
+
+		if (strpos($format, '#hour#') !== false || strpos($format, '#hours#') !== false) {
+			// Calculate number of hours.
+			$hours = floor(($endTimestamp - $startTimestamp) / 3600);
+			// Hours are constant, so we didn't go too far.
+			if (strpos($format, '#hour#') !== false && $hours == 1) {
+				$format = preg_replace('/\{?([^{}]*)#hour#([^{}]*)\}?/s', '${1}'.$negative.$hours.'${2}', $format);
+				$format = preg_replace('/\{([^{}]*)#hours#([^{}]*)\}/s', '', $format);
+			} elseif (strpos($format, '#hours#') !== false) {
+				if ($hours <> 0) {
+					$format = preg_replace('/\{?([^{}]*)#hours#([^{}]*)\}?/s', '${1}'.$negative.$hours.'${2}', $format);
+				} else {
+					$format = preg_replace(array('/\{([^{}]*)#hours#([^{}]*)\}/s', '/#hours#/'), array('', '0'), $format);
+				}
+				$format = preg_replace('/\{([^{}]*)#hour#([^{}]*)\}/s', '', $format);
+			}
+			// Because hours are affected by DST, we need to add to the timestamp, and not the date object.
+			$startTimestamp += $hours * 3600;
+			// Create a date object from the timestamp.
+			$start_date = new DateTime(gmdate('c', (int) $startTimestamp));
+			if (isset($timezone)) {
+				if ((object) $timezone !== $timezone) {
+					$timezone = new DateTimeZone($timezone);
+				}
+				$start_date->setTimezone($timezone);
+			} else {
+				$start_date->setTimezone(new DateTimeZone(date_default_timezone_get()));
+			}
+		}
+
+		if (strpos($format, '#minute#') !== false || strpos($format, '#minutes#') !== false) {
+			// Calculate number of minutes.
+			$minutes = floor(($endTimestamp - $startTimestamp) / 60);
+			// Minutes are constant, so we didn't go too far.
+			if (strpos($format, '#minute#') !== false && $minutes == 1) {
+				$format = preg_replace('/\{?([^{}]*)#minute#([^{}]*)\}?/s', '${1}'.$negative.$minutes.'${2}', $format);
+				$format = preg_replace('/\{([^{}]*)#minutes#([^{}]*)\}/s', '', $format);
+			} elseif (strpos($format, '#minutes#') !== false) {
+				if ($minutes <> 0) {
+					$format = preg_replace('/\{?([^{}]*)#minutes#([^{}]*)\}?/s', '${1}'.$negative.$minutes.'${2}', $format);
+				} else {
+					$format = preg_replace(array('/\{([^{}]*)#minutes#([^{}]*)\}/s', '/#minutes#/'), array('', '0'), $format);
+				}
+				$format = preg_replace('/\{([^{}]*)#minute#([^{}]*)\}/s', '', $format);
+			}
+			// Because minutes are affected by DST, we need to add to the timestamp, and not the date object.
+			$startTimestamp += $minutes * 60;
+			// Create a date object from the timestamp.
+			$start_date = new DateTime(gmdate('c', (int) $startTimestamp));
+			if (isset($timezone)) {
+				if ((object) $timezone !== $timezone) {
+					$timezone = new DateTimeZone($timezone);
+				}
+				$start_date->setTimezone($timezone);
+			} else {
+				$start_date->setTimezone(new DateTimeZone(date_default_timezone_get()));
+			}
+		}
+
+		if (strpos($format, '#second#') !== false || strpos($format, '#seconds#') !== false) {
+			// Calculate number of seconds.
+			$seconds = (int) $endTimestamp - (int) $startTimestamp;
+			if (strpos($format, '#second#') !== false && $seconds == 1) {
+				$format = preg_replace('/\{?([^{}]*)#second#([^{}]*)\}?/s', '${1}'.$negative.$seconds.'${2}', $format);
+				$format = preg_replace('/\{([^{}]*)#seconds#([^{}]*)\}/s', '', $format);
+			} elseif (strpos($format, '#seconds#') !== false) {
+				if ($seconds <> 0) {
+					$format = preg_replace('/\{?([^{}]*)#seconds#([^{}]*)\}?/s', '${1}'.$negative.$seconds.'${2}', $format);
+				} else {
+					$format = preg_replace(array('/\{([^{}]*)#seconds#([^{}]*)\}/s', '/#seconds#/'), array('', '0'), $format);
+				}
+				$format = preg_replace('/\{([^{}]*)#second#([^{}]*)\}/s', '', $format);
+			}
+		}
+
+		return trim($format);
+	}
+
+	/**
+	 * Get a fuzzy time string.
+	 *
+	 * Converts a timestamp from the past into a human readable estimation of
+	 * the time that has passed.
+	 *
+	 * Ex: a few minutes ago
+	 *
+	 * Credit: http://www.byteinn.com/res/426/Fuzzy_Time_function/
+	 *
+	 * @param int $timestamp The timestamp to format.
+	 * @return string Fuzzy time string.
+	 */
+	public function formatFuzzyTime($timestamp) {
+		$now = time();
+		$one_minute = 60;
+		$one_hour = 3600;
+		$one_day = 86400;
+		$one_week = $one_day * 7;
+		$one_month = $one_day * 30.42;
+		$one_year = $one_day * 365;
+
+		// sod = start of day :)
+		$sod = mktime(0, 0, 0, date('m', $timestamp), date('d', $timestamp), date('Y', $timestamp));
+		$sod_now = mktime(0, 0, 0, date('m', $now), date('d', $now), date('Y', $now));
+
+		// used to convert numbers to strings
+		$convert = array(
+			1 => 'one',
+			2 => 'two',
+			3 => 'three',
+			4 => 'four',
+			5 => 'five',
+			6 => 'six',
+			7 => 'seven',
+			8 => 'eight',
+			9 => 'nine',
+			10 => 'ten',
+			11 => 'eleven',
+			12 => 'twelve',
+			13 => 'thirteen',
+			14 => 'fourteen',
+			15 => 'fifteen',
+			16 => 'sixteen',
+			17 => 'seventeen',
+			18 => 'eighteen',
+			19 => 'nineteen',
+			20 => 'twenty',
+		);
+
+		// today (or yesterday, but less than 1 hour ago)
+		if ($sod_now == $sod || $timestamp > $now - $one_hour) {
+			if ($timestamp > $now - $one_minute) {
+				return 'just now';
+			} elseif ($timestamp > $now - ($one_minute * 3)) {
+				return 'just a moment ago';
+			} elseif ($timestamp > $now - ($one_minute * 7)) {
+				return 'a few minutes ago';
+			} elseif ($timestamp > $now - $one_hour) {
+				return 'less than an hour ago';
+			}
+			return 'today at ' . date('g:ia', $timestamp);
+		}
+
+		// yesterday
+		if (($sod_now - $sod) <= $one_day) {
+			if (date('i', $timestamp) > ($one_minute + 30)) {
+				$timestamp += $one_hour / 2;
+			}
+			return 'yesterday around ' . date('ga', $timestamp);
+		}
+
+		// within the last 5 days
+		if (($sod_now - $sod) <= ($one_day * 5)) {
+			$str = date('l', $timestamp);
+			$hour = date('G', $timestamp);
+			if ($hour < 12) {
+				$str .= ' morning';
+			} elseif ($hour < 17) {
+				$str .= ' afternoon';
+			} elseif ($hour < 20) {
+				$str .= ' evening';
+			} else {
+				$str .= ' night';
+			}
+			return $str;
+		}
+
+		// number of weeks (between 1 and 3)...
+		if (($sod_now - $sod) < ($one_week * 3.5)) {
+			if (($sod_now - $sod) < ($one_week * 1.5)) {
+				return 'about a week ago';
+			} elseif (($sod_now - $sod) < ($one_day * 2.5)) {
+				return 'about two weeks ago';
+			} else {
+				return 'about three weeks ago';
+			}
+		}
+
+		// number of months (between 1 and 11)...
+		if (($sod_now - $sod) < ($one_month * 11.5)) {
+			for ($i = ($one_week * 3.5), $m = 0; $i < $one_year; $i += $one_month, $m++) {
+				if (($sod_now - $sod) <= $i) {
+					return 'about ' . $convert[$m] . ' month' . (($m > 1) ? 's' : '') . ' ago';
+				}
+			}
+		}
+
+		// number of years...
+		for ($i = ($one_month * 11.5), $y = 0; $i < ($one_year * 21); $i += $one_year, $y++) {
+			if (($sod_now - $sod) <= $i) {
+				return 'about ' . $convert[$y] . ' year' . (($y > 1) ? 's' : '') . ' ago';
+			}
+		}
+
+		// more than twenty years...
+		return 'more than twenty years ago';
+	}
+
+	/**
+	 * Format a phone number.
+	 *
+	 * Uses US phone number format. E.g. "(800) 555-1234 x56".
+	 *
+	 * @param string $number The phone number to format.
+	 * @return string The formatted phone number.
+	 */
+	public function formatPhone($number) {
+		if (!isset($number)) {
+			return '';
+		}
+		$return = preg_replace('/\D*0?1?\D*(\d)?\D*(\d)?\D*(\d)?\D*(\d)?\D*(\d)?\D*(\d)?\D*(\d)?\D*(\d)?\D*(\d)?\D*(\d)?\D*(\d*)\D*/', '($1$2$3) $4$5$6-$7$8$9$10 x$11', (string) $number);
+		return preg_replace('/\D*$/', '', $return);
 	}
 }

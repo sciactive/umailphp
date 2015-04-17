@@ -5,6 +5,8 @@ error_reporting(E_ALL);
 include '../vendor/autoload.php';
 include '../src/autoload.php';
 
+date_default_timezone_set('America/Los_Angeles');
+
 // µMailPHP's config.
 \SciActive\RequirePHP::_('µMailPHPConfig', [], function(){
 	$config = include('../conf/defaults.php');

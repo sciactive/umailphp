@@ -5,6 +5,8 @@ error_reporting(E_ALL);
 require '../vendor/autoload.php';
 require '../src/autoload.php';
 
+date_default_timezone_set('America/Los_Angeles');
+
 \SciActive\RequirePHP::_('NymphConfig', [], function(){
 	$nymph_config = include(__DIR__.DIRECTORY_SEPARATOR.'../vendor/sciactive/nymph/conf/defaults.php');
 

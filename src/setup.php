@@ -55,15 +55,15 @@ $examples = [
 		</script>
 		<script src="<?php echo htmlspecialchars($sciactiveBaseURL); ?>nymph-client/src/Nymph.js"></script>
 		<script src="<?php echo htmlspecialchars($sciactiveBaseURL); ?>nymph-client/src/Entity.js"></script>
-		<script src="<?php echo htmlspecialchars($baseURL); ?>/src/Rendition.js"></script>
-		<script src="<?php echo htmlspecialchars($baseURL); ?>/src/Template.js"></script>
+		<script src="<?php echo htmlspecialchars($baseURL); ?>src/Rendition.js"></script>
+		<script src="<?php echo htmlspecialchars($baseURL); ?>src/Template.js"></script>
 
-		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
-		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular-route.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-route.js"></script>
 
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
 		<link rel="stylesheet" href="<?php echo htmlspecialchars($sciactiveBaseURL); ?>pform/css/pform.min.css">
 		<link rel="stylesheet" href="<?php echo htmlspecialchars($sciactiveBaseURL); ?>pform/css/pform-bootstrap.min.css">
@@ -81,7 +81,7 @@ $examples = [
 		<script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/4.11.0/addon/edit/closebrackets.min.js"></script>
 		<script src="https://rawgithub.com/angular-ui/ui-codemirror/bower/ui-codemirror.min.js"></script>
 
-		<script src="<?php echo htmlspecialchars($baseURL); ?>/src/setupApp.js"></script>
+		<script src="<?php echo htmlspecialchars($baseURL); ?>src/setupApp.js"></script>
 
 		<style type="text/css">
 			form {

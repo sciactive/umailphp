@@ -72,6 +72,7 @@ angular.module('setupApp', ['ngRoute', 'ui.codemirror'])
 
 	Nymph.getEntities({'class': '\\µMailPHP\\Template'}).then(function(entities){
 		$scope.entities = entities;
+		$scope.$apply();
 	});
 
 	$scope.entity = new Template();

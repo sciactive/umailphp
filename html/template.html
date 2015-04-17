@@ -13,12 +13,12 @@
 </div>
 <form class="pf-form" method="post" name="templateform" ng-submit="saveEntity()" style="position: relative;">
 	<ul class="nav nav-tabs" style="clear: both; margin-bottom: 15px;">
-		<li class="active"><a href=".tab_general" data-toggle="tab">General</a></li>
-		<li><a href=".tab_replace" data-toggle="tab">Replace</a></li>
-		<li><a href=".tab_document" data-toggle="tab">Document</a></li>
+		<li class="active"><a href=".tab-pane-general" data-toggle="tab">General</a></li>
+		<li><a href=".tab-pane-replace" data-toggle="tab">Replace</a></li>
+		<li><a href=".tab-pane-document" data-toggle="tab">Document</a></li>
 	</ul>
 	<div class="tab-content">
-		<div class="tab-pane tab_general active">
+		<div class="tab-pane tab-pane-general active">
 			<div class="pf-element">
 				<label><span class="pf-label">Name</span>
 					<input class="pf-field form-control" type="text" name="name" size="24" required ng-model="entity.data.name" /></label>
@@ -207,7 +207,7 @@
 			</div>
 			<br class="pf-clearing" />
 		</div>
-		<div class="tab-pane tab_replace">
+		<div class="tab-pane tab-pane-replace">
 			<div class="pf-element pf-heading">
 				<h3>Search and Replace Strings</h3>
 				<p>These strings can be used to replace values in emails generated with this template.</p>
@@ -241,7 +241,7 @@
 			</div>
 			<br class="pf-clearing" />
 		</div>
-		<div class="tab-pane tab_document">
+		<div class="tab-pane tab-pane-document">
 			<div class="pf-element pf-heading">
 				<h3>Email Document</h3>
 				<p>The email document is the HTML portion surrounding the actual

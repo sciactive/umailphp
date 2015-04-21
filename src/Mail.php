@@ -280,10 +280,10 @@ class Mail {
 				$cur_field = str_replace('#to_name#', htmlspecialchars(isset($recipient->name) ? $recipient->name : ''), $cur_field);
 			}
 			if (strpos($cur_field, '#to_first_name#') !== false) {
-				$cur_field = str_replace('#to_first_name#', htmlspecialchars(isset($recipient->name_first) ? $recipient->name_first : ''), $cur_field);
+				$cur_field = str_replace('#to_first_name#', htmlspecialchars(isset($recipient->nameFirst) ? $recipient->nameFirst : ''), $cur_field);
 			}
 			if (strpos($cur_field, '#to_last_name#') !== false) {
-				$cur_field = str_replace('#to_last_name#', htmlspecialchars(isset($recipient->name_last) ? $recipient->name_last : ''), $cur_field);
+				$cur_field = str_replace('#to_last_name#', htmlspecialchars(isset($recipient->nameLast) ? $recipient->nameLast : ''), $cur_field);
 			}
 			if (strpos($cur_field, '#to_email#') !== false) {
 				$cur_field = str_replace('#to_email#', htmlspecialchars(isset($recipient->email) ? $recipient->email : ''), $cur_field);
@@ -297,10 +297,10 @@ class Mail {
 					$cur_field = str_replace('#name#', htmlspecialchars(\Tilmeld\User::current()->name), $cur_field);
 				}
 				if (strpos($cur_field, '#first_name#') !== false) {
-					$cur_field = str_replace('#first_name#', htmlspecialchars(\Tilmeld\User::current()->name_first), $cur_field);
+					$cur_field = str_replace('#first_name#', htmlspecialchars(\Tilmeld\User::current()->nameFirst), $cur_field);
 				}
 				if (strpos($cur_field, '#last_name#') !== false) {
-					$cur_field = str_replace('#last_name#', htmlspecialchars(\Tilmeld\User::current()->name_last), $cur_field);
+					$cur_field = str_replace('#last_name#', htmlspecialchars(\Tilmeld\User::current()->nameLast), $cur_field);
 				}
 				if (strpos($cur_field, '#email#') !== false) {
 					$cur_field = str_replace('#email#', htmlspecialchars(\Tilmeld\User::current()->email), $cur_field);

@@ -17,7 +17,7 @@
 	Template.prototype = new Entity();
 
 	var thisClass = {
-		// === The Name of the Class ===
+		// === The Name of the Server Class ===
 		class: '\\µMailPHP\\Template',
 
 		// === Class Variables ===

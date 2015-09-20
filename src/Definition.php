@@ -34,12 +34,6 @@ abstract class Definition implements DefinitionInterface {
 	 */
 	public static $expectsRecipient;
 	/**
-	 * Whether this email should obey the unsubscribed status of an address.
-	 *
-	 * @public bool
-	 */
-	public static $unsubscribe;
-	/**
 	 * The macros available for this definition.
 	 *
 	 * The key is the name, the value is the description.

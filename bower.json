@@ -1,7 +1,7 @@
 {
   "name": "umailphp",
   "description": "A PHP email templating system.",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.2",
   "authors": [
     "Hunter Perrin <hunter@sciactive.com>"
   ],

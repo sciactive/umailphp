@@ -12,7 +12,6 @@ date_default_timezone_set('America/Los_Angeles');
 	$config = include('../conf/defaults.php');
 	$config->site_name['value'] = 'µMailPHP Example Site';
 	$config->site_link['value'] = 'http://localhost/umailphp/';
-	$config->unsubscribe_url['value'] = 'http://localhost/umailphp/examples/unsubscribe.php';
 	$config->master_address['value'] = 'hperrin@gmail.com';
 	$config->testing_mode['value'] = true;
 	$config->testing_email['value'] = 'hperrin@gmail.com';

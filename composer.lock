@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "40f15f7b08a06b1907e4032b2a2d8326",
+    "hash": "ee7aea4c20a2a50af0717c071f70a001",
     "packages": [
         {
             "name": "sciactive/nymph-server",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sciactive/nymph-server.git",
-                "reference": "3f72c1c5e420fc0c0aa26dcbeb299fbac3133d59"
+                "reference": "f2b4fa39ac9033e24aeb34d0de9869717cb02ccb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sciactive/nymph-server/zipball/3f72c1c5e420fc0c0aa26dcbeb299fbac3133d59",
-                "reference": "3f72c1c5e420fc0c0aa26dcbeb299fbac3133d59",
+                "url": "https://api.github.com/repos/sciactive/nymph-server/zipball/f2b4fa39ac9033e24aeb34d0de9869717cb02ccb",
+                "reference": "f2b4fa39ac9033e24aeb34d0de9869717cb02ccb",
                 "shasum": ""
             },
             "require": {
@@ -59,7 +59,7 @@
                 "postgres",
                 "postgresql"
             ],
-            "time": "2015-04-21 21:38:06"
+            "time": "2015-09-02 23:02:19"
         },
         {
             "name": "sciactive/requirephp",

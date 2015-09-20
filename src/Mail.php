@@ -65,13 +65,6 @@ class Mail {
 	 * @var array
 	 */
 	public $attachments = [];
-	/**
-	 * If all recipients are unsubscribed, the email should report success on send.
-	 *
-	 * @var bool
-	 * @access private
-	 */
-	private $recipientsUnsubscribed = false;
 
 	/**
 	 * @param \µMailPHP\Definition The name of the mail definition class.
@@ -167,41 +160,6 @@ class Mail {
 			}
 		}
 
-		// Remove emails that are on the unsubscribed list if the definition obeys it.
-		if ($definition::unsubscribe) {
-			$unsub = new UnsubscribeStore();
-
-			if (strpos($recipient->email, ',') !== false) {
-				$emails = explode(',', $recipient->email);
-			} else {
-				$emails = array($recipient->email);
-			}
-
-			$changed = false;
-			foreach ($emails as $key => &$cur_email) {
-				$cur_email = trim($cur_email);
-				if (preg_match('/<.+@.+>/', $cur_email)) {
-					$check_email = trim(preg_replace('/^.*<(.+@.+)>.*$/', '$1', $cur_email));
-				} else {
-					$check_email = $cur_email;
-				}
-				if ($unsub->unsubscribeQuery($check_email)) {
-					unset($emails[$key]);
-					$changed = true;
-				}
-			}
-			unset($cur_email);
-
-			if ($changed) {
-				$recipient->email = implode(', ', $emails);
-			}
-			// If every user is unsubscribed, report a success without sending
-			// an email.
-			if (!$recipient->email) {
-				$this->recipientsUnsubscribed = true;
-			}
-		}
-
 		// Get the email contents.
 		$body = [];
 		if ($rendition) {
@@ -245,11 +203,6 @@ class Mail {
 					)
 			);
 
-		// Protects users from being unsubscribed by just anyone.
-		$unsubscribe_secret = md5($recipient->email . $config->unsubscribe_key['value']);
-		$unsubscribe_url = $config->unsubscribe_url['value'];
-		$unsubscribe_url .= (strpos($unsubscribe_url, '?') === false ? '?' : '&').'email='.urlencode($recipient->email).'&verify='.urlencode($unsubscribe_secret);
-
 		// Replace macros and search strings.
 		foreach ($body as &$cur_field) {
 			// Some of these str_replace calls are wrapped in a strpos call,
@@ -268,9 +221,6 @@ class Mail {
 			// Links
 			if (strpos($cur_field, '#site_link#') !== false) {
 				$cur_field = str_replace('#site_link#', htmlspecialchars($config->site_link['value']), $cur_field);
-			}
-			if (strpos($cur_field, '#unsubscribe_link#') !== false) {
-				$cur_field = str_replace('#unsubscribe_link#', htmlspecialchars($unsubscribe_url), $cur_field);
 			}
 			// Recipient
 			if (strpos($cur_field, '#to_username#') !== false) {
@@ -388,7 +338,7 @@ class Mail {
 		if (!preg_match('/^.+@.+$/', $sender)) {
 			throw new \InvalidArgumentException('Invalid value for email sender.');
 		}
-		if (!$this->recipientsUnsubscribed && !preg_match('/^.+@.+$/', $destination)) {
+		if (!preg_match('/^.+@.+$/', $destination)) {
 			throw new \InvalidArgumentException('Invalid value for email recipient.');
 		}
 		if (!isset($body['subject']) || !is_string($body['subject']) || strlen($body['subject']) > 255) {
@@ -539,10 +489,6 @@ class Mail {
 	 * @return bool True on success, false on failure.
 	 */
 	public function send() {
-		if ($this->recipientsUnsubscribed) {
-			return true;
-		}
-
 		// First verify values.
 		if (!preg_match('/^.+@.+$/', $this->sender)) {
 			return false;

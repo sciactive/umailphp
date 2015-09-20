@@ -60,7 +60,7 @@ class Template extends \Nymph\Entity {
 	<br />
 	<br />
 	<table class="table" width="600" cellpadding="8" cellspacing="0" bgcolor="#D8D8D8" align="center" border="0">
-		<tr><td valign="top" style="color:#3A3A3A; font-size:14px; background-color: #D8D8D8; text-align:center; line-height:20px">You received this email because you have an account at <a href="#site_link#">#site_name#</a>.<br />If you no longer wish to receive emails from us, you can <a href="#unsubscribe_link#">unsubscribe</a>.</td></tr>
+		<tr><td valign="top" style="color:#3A3A3A; font-size:14px; background-color: #D8D8D8; text-align:center; line-height:20px">You received this email because you have an account at <a href="#site_link#">#site_name#</a>.</td></tr>
 	</table>
 </div>
 EOF;

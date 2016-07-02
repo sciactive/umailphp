@@ -9,13 +9,13 @@ date_default_timezone_set('America/Los_Angeles');
 
 // µMailPHP's config.
 \SciActive\RequirePHP::_('µMailPHPConfig', [], function(){
-	$config = include('../conf/defaults.php');
-	$config->site_name['value'] = 'µMailPHP Example Site';
-	$config->site_link['value'] = 'http://localhost/umailphp/';
-	$config->master_address['value'] = 'hperrin@gmail.com';
-	$config->testing_mode['value'] = true;
-	$config->testing_email['value'] = 'hperrin@gmail.com';
-	return $config;
+  $config = include('../conf/defaults.php');
+  $config->site_name['value'] = 'µMailPHP Example Site';
+  $config->site_link['value'] = 'http://localhost/umailphp/';
+  $config->master_address['value'] = 'hperrin@gmail.com';
+  $config->testing_mode['value'] = true;
+  $config->testing_email['value'] = 'hperrin@gmail.com';
+  return $config;
 });
 
 // This is how you enter the setup app.

@@ -1,310 +1,310 @@
 <div class="panel panel-default">
-	<div class="panel-heading">
-		Select a Rendition to edit.
-	</div>
-	<div class="panel-body">
-		<select class="form-control" ng-model="entity" ng-options="ent as ent.data.name+(ent.data.enabled ? '' : ' (Disabled)') for ent in entities track by ent.guid" ng-change="checkNewEntity()">
-			<option value="" ng-value="null">- New Rendition -</option>
-		</select>
-	</div>
+  <div class="panel-heading">
+    Select a Rendition to edit.
+  </div>
+  <div class="panel-body">
+    <select class="form-control" ng-model="entity" ng-options="ent as ent.data.name+(ent.data.enabled ? '' : ' (Disabled)') for ent in entities track by ent.guid" ng-change="checkNewEntity()">
+      <option value="" ng-value="null">- New Rendition -</option>
+    </select>
+  </div>
 </div>
 <div class="page-header" style="margin-top: 0;">
-	<h2 style="margin-top: 0;">Editing {{entity.data.guid ? entity.data.name : 'New Rendition'}}</h2>
+  <h2 style="margin-top: 0;">Editing {{entity.data.guid ? entity.data.name : 'New Rendition'}}</h2>
 </div>
 <form class="pf-form" method="post" name="renditionform" ng-submit="saveEntity()" style="position: relative;">
-	<div class="pf-element">
-		<label><span class="pf-label">Name</span>
-			<input class="pf-field form-control" type="text" name="name" size="24" required ng-model="entity.data.name" /></label>
-	</div>
-	<div class="pf-element">
-		<label><span class="pf-label">Enabled</span>
-			<input class="pf-field" type="checkbox" name="enabled" ng-model="entity.data.enabled" /></label>
-	</div>
-	<div class="pf-element pf-heading">
-		<h3>Definition</h3>
-	</div>
-	<div ng-repeat="(name, definition) in definitions" class="pf-element pf-full-width mail_definitions">
-		<div style="padding: .5em;" class="clearfix &lt;?php echo ($i % 2) ? '' : ' alert-info'; ?>">
-			<strong class="pf-label" style="font-size: 1.1em;">
-				{{definition.cname}}
-				<span ng-if="definition.expectsRecipient" class="pf-note">Expects recipient.</span>
-			</strong>
-			<div class="pf-group">
-				<div class="pf-field">
-					<label>
-						<input type="radio" ng-model="entity.data.definition" name="definition" ng-value="name" ng-change="askDefaultContent()" />
-						<span>
-							{{definition.description}}
-						</span>
-					</label>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div ng-if="entity.data.definition">
-		<div class="pf-element pf-heading">
-			<h3>Addressing <small><a href=".rendition_address_help" data-toggle="modal">(?)</a></small></h3>
-		</div>
-		<div class="modal fade rendition_address_help">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h4 class="modal-title">Address Formats</h4>
-					</div>
-					<div class="modal-body">
-						<p>Addresses can use the following formats:</p>
-						<h4>Single Address (Sender must be a single address.)</h4>
-						<ul>
-							<li>email@example.com</li>
-							<li>"John McPerson" &lt;email@example.com&gt;</li>
-						</ul>
-						<h4>Multiple Addresses</h4>
-						<ul>
-							<li>email@example.com, another@example.net</li>
-							<li>"John McPerson" &lt;email@example.com&gt;, another@example.net</li>
-							<li>"John McPerson" &lt;email@example.com&gt;, "Another User" &lt;another@example.net&gt;</li>
-						</ul>
-					</div>
-					<div class="modal-footer">
-						<a href="javascript:void(0);" class="btn btn-primary" data-dismiss="modal">Close</a>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="pf-element" id="rendition_recipient" ng-if="!definitions[entity.data.definition].expectsRecipient">
-			<label><strong class="pf-label">Recipient (To Address)</strong>
-				<span class="pf-note"><strong>This mailing doesn't have a To address specified.</strong> Leave blank to use the master address (see config).</span>
-				<input ng-pattern="/^(?:(?:(?:&quot;[^&quot;]*&quot; )?<)?\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b>?(?:, ?)?)+$/i" class="pf-field form-control" type="text" name="to" size="40" ng-model="entity.data.to" />
-				<span ng-show="renditionform.to.$error.pattern" class="label label-danger">Incorrect Format</span></label>
-		</div>
-		<div class="pf-element">
-			<label><span class="pf-label">Sender (From Address)</span>
-				<span class="pf-note">Leave blank to use the default address (see config).</span>
-				<input ng-pattern="/^(?:(?:(?:&quot;[^&quot;]*&quot; )?<)?\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b>?(?:, ?)?)+$/i" class="pf-field form-control" type="text" name="from" size="40" ng-model="entity.data.from" />
-				<span ng-show="renditionform.from.$error.pattern" class="label label-danger">Incorrect Format</span></label>
-		</div>
-		<div class="pf-element">
-			<label><span class="pf-label">Carbon Copy (CC Address)</span>
-				<span class="pf-note">The email is copied to these addresses. This <strong>will</strong> be visible to the recipient.</span>
-				<input ng-pattern="/^(?:(?:(?:&quot;[^&quot;]*&quot; )?<)?\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b>?(?:, ?)?)+$/i" class="pf-field form-control" type="text" name="cc" size="40" ng-model="entity.data.cc" />
-				<span ng-show="renditionform.cc.$error.pattern" class="label label-danger">Incorrect Format</span></label>
-		</div>
-		<div class="pf-element">
-			<label><span class="pf-label">Blind Carbon Copy (BCC Address)</span>
-				<span class="pf-note">The email is copied to these addresses. This <strong>will not</strong> be visible to the recipient.</span>
-				<input ng-pattern="/^(?:(?:(?:&quot;[^&quot;]*&quot; )?<)?\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b>?(?:, ?)?)+$/i" class="pf-field form-control" type="text" name="bcc" size="40" ng-model="entity.data.bcc" />
-				<span ng-show="renditionform.bcc.$error.pattern" class="label label-danger">Incorrect Format</span></label>
-		</div>
-		<div class="pf-element pf-heading">
-			<h3>Content</h3>
-		</div>
-		<div class="pf-element pf-full-width">
-			<label>
-				<span class="pf-label">Subject</span>
-				<span class="pf-group">
-					<span class="pf-field" style="display: block; width: 100%; padding-right: 9px;">
-						<input class="form-control" type="text" name="subject" style="width: 100%;" ng-model="entity.data.subject" />
-					</span>
-				</span>
-			</label>
-		</div>
-		<div class="pf-element pf-full-width">
-			<span class="pf-label">Message Body</span>
-			<div class="pf-clearing" style="height: 300px;">
-				<textarea rows="20" cols="35" ui-codemirror="{
-						lineNumbers: true,
-						lineWrapping : false,
-						mode: 'htmlmixed',
-						matchBrackets: true,
-						autoCloseBrackets: true,
-						matchTags: true,
-						autoCloseTags: true
-					}" style="width: 100%;" name="content" ng-model="entity.data.content"></textarea>
-			</div>
-		</div>
-		<div class="pf-element">
-			Macros let you replace a string with a value that can change. To
-			use them, insert the desired macro string into the content where
-			you would like the macro to appear.
-		</div>
-		<div ng-if="definitions[entity.data.definition].macros" class="pf-element pf-layout-block pf-full-width">
-			<span class="pf-label">Definition Macros</span>
-			<div class="pf-group">
-				<div class="pf-field">
-					<table class="table table-condensed table-bordered">
-						<thead>
-							<tr>
-								<th>Macro String</th>
-								<th>Description</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr ng-repeat="(id, desc) in definitions[entity.data.definition].macros">
-								<td>#{{id}}#</td>
-								<td>{{desc}}</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-		<div class="pf-element pf-layout-block pf-full-width">
-			<span class="pf-label">Universal Macros</span>
-			<div class="pf-group">
-				<div class="pf-field">
-					<table class="table table-condensed table-bordered">
-						<thead>
-							<tr>
-								<th></th>
-								<th>Macro String</th>
-								<th>Description</th>
-								<th>Example</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td></td>
-								<td>#subject#</td>
-								<td>The email subject.</td>
-								<td>N/A</td>
-							</tr>
-							<tr>
-								<td rowspan="3">Site</td>
-								<td>#site_name#</td>
-								<td>The system name.</td>
-								<td>{{examples['site_name']}}</td>
-							</tr>
-							<tr>
-								<td>#site_link#</td>
-								<td>The URL of the site, to be used in a link.</td>
-								<td>{{examples['site_link']}}</td>
-							</tr>
-							<tr>
-								<td rowspan="5">Recipient</td>
-								<td>#to_username#</td>
-								<td>The recipient's username (or groupname).</td>
-								<td>N/A</td>
-							</tr>
-							<tr>
-								<td>#to_name#</td>
-								<td>The recipient's full name.</td>
-								<td>N/A</td>
-							</tr>
-							<tr>
-								<td>#to_first_name#</td>
-								<td>The recipient's first name.</td>
-								<td>N/A</td>
-							</tr>
-							<tr>
-								<td>#to_last_name#</td>
-								<td>The recipient's last name.</td>
-								<td>N/A</td>
-							</tr>
-							<tr>
-								<td>#to_email#</td>
-								<td>The recipient's email.</td>
-								<td>N/A</td>
-							</tr>
-							<tr ng-if="Tilmeld">
-								<td rowspan="5">Current User</td>
-								<td>#username#</td>
-								<td>The current user's username.</td>
-								<td></td>
-							</tr>
-							<tr ng-if="Tilmeld">
-								<td>#name#</td>
-								<td>The current user's full name.</td>
-								<td></td>
-							</tr>
-							<tr ng-if="Tilmeld">
-								<td>#first_name#</td>
-								<td>The current user's first name.</td>
-								<td></td>
-							</tr>
-							<tr ng-if="Tilmeld">
-								<td>#last_name#</td>
-								<td>The current user's last name.</td>
-								<td></td>
-							</tr>
-							<tr ng-if="Tilmeld">
-								<td>#email#</td>
-								<td>The current user's email.</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td rowspan="12">Date/Time</td>
-								<td>#datetime_sort#</td>
-								<td>The date and time. (Sortable)</td>
-								<td>{{examples['datetime_sort']}}</td>
-							</tr>
-							<tr>
-								<td>#datetime_short#</td>
-								<td>The date and time. (Short)</td>
-								<td>{{examples['datetime_short']}}</td>
-							</tr>
-							<tr>
-								<td>#datetime_med#</td>
-								<td>The date and time. (Medium)</td>
-								<td>{{examples['datetime_med']}}</td>
-							</tr>
-							<tr>
-								<td>#datetime_long#</td>
-								<td>The date and time. (Long)</td>
-								<td>{{examples['datetime_long']}}</td>
-							</tr>
-							<tr>
-								<td>#date_sort#</td>
-								<td>The date. (Sortable)</td>
-								<td>{{examples['date_sort']}}</td>
-							</tr>
-							<tr>
-								<td>#date_short#</td>
-								<td>The date. (Short)</td>
-								<td>{{examples['date_short']}}</td>
-							</tr>
-							<tr>
-								<td>#date_med#</td>
-								<td>The date. (Medium)</td>
-								<td>{{examples['date_med']}}</td>
-							</tr>
-							<tr>
-								<td>#date_long#</td>
-								<td>The date. (Long)</td>
-								<td>{{examples['date_long']}}</td>
-							</tr>
-							<tr>
-								<td>#time_sort#</td>
-								<td>The time of day. (Sortable)</td>
-								<td>{{examples['time_sort']}}</td>
-							</tr>
-							<tr>
-								<td>#time_short#</td>
-								<td>The time of day. (Short)</td>
-								<td>{{examples['time_short']}}</td>
-							</tr>
-							<tr>
-								<td>#time_med#</td>
-								<td>The time of day. (Medium)</td>
-								<td>{{examples['time_med']}}</td>
-							</tr>
-							<tr>
-								<td>#time_long#</td>
-								<td>The time of day. (Long)</td>
-								<td>{{examples['time_long']}}</td>
-							</tr>
-						</tbody>
-					</table>
-					<p ng-if="Tilmeld">Care should be taken when using values from the current user, because they will be empty when no user is logged in.</p>
-					<p>The recipient info will automatically be available for registered users if you are using Tilmeld.</p>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="pf-element panel panel-default button-panel">
-		<div class="panel-body">
-			<input class="pf-button btn btn-primary" type="submit" value="Save" />
-			<span ng-if="success" class="label label-success">Successfully saved!</span>
-		</div>
-	</div>
+  <div class="pf-element">
+    <label><span class="pf-label">Name</span>
+      <input class="pf-field form-control" type="text" name="name" size="24" required ng-model="entity.data.name" /></label>
+  </div>
+  <div class="pf-element">
+    <label><span class="pf-label">Enabled</span>
+      <input class="pf-field" type="checkbox" name="enabled" ng-model="entity.data.enabled" /></label>
+  </div>
+  <div class="pf-element pf-heading">
+    <h3>Definition</h3>
+  </div>
+  <div ng-repeat="(name, definition) in definitions" class="pf-element pf-full-width mail_definitions">
+    <div style="padding: .5em;" class="clearfix &lt;?php echo ($i % 2) ? '' : ' alert-info'; ?>">
+      <strong class="pf-label" style="font-size: 1.1em;">
+        {{definition.cname}}
+        <span ng-if="definition.expectsRecipient" class="pf-note">Expects recipient.</span>
+      </strong>
+      <div class="pf-group">
+        <div class="pf-field">
+          <label>
+            <input type="radio" ng-model="entity.data.definition" name="definition" ng-value="name" ng-change="askDefaultContent()" />
+            <span>
+              {{definition.description}}
+            </span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div ng-if="entity.data.definition">
+    <div class="pf-element pf-heading">
+      <h3>Addressing <small><a href=".rendition_address_help" data-toggle="modal">(?)</a></small></h3>
+    </div>
+    <div class="modal fade rendition_address_help">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Address Formats</h4>
+          </div>
+          <div class="modal-body">
+            <p>Addresses can use the following formats:</p>
+            <h4>Single Address (Sender must be a single address.)</h4>
+            <ul>
+              <li>email@example.com</li>
+              <li>"John McPerson" &lt;email@example.com&gt;</li>
+            </ul>
+            <h4>Multiple Addresses</h4>
+            <ul>
+              <li>email@example.com, another@example.net</li>
+              <li>"John McPerson" &lt;email@example.com&gt;, another@example.net</li>
+              <li>"John McPerson" &lt;email@example.com&gt;, "Another User" &lt;another@example.net&gt;</li>
+            </ul>
+          </div>
+          <div class="modal-footer">
+            <a href="javascript:void(0);" class="btn btn-primary" data-dismiss="modal">Close</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pf-element" id="rendition_recipient" ng-if="!definitions[entity.data.definition].expectsRecipient">
+      <label><strong class="pf-label">Recipient (To Address)</strong>
+        <span class="pf-note"><strong>This mailing doesn't have a To address specified.</strong> Leave blank to use the master address (see config).</span>
+        <input ng-pattern="/^(?:(?:(?:&quot;[^&quot;]*&quot; )?<)?\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b>?(?:, ?)?)+$/i" class="pf-field form-control" type="text" name="to" size="40" ng-model="entity.data.to" />
+        <span ng-show="renditionform.to.$error.pattern" class="label label-danger">Incorrect Format</span></label>
+    </div>
+    <div class="pf-element">
+      <label><span class="pf-label">Sender (From Address)</span>
+        <span class="pf-note">Leave blank to use the default address (see config).</span>
+        <input ng-pattern="/^(?:(?:(?:&quot;[^&quot;]*&quot; )?<)?\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b>?(?:, ?)?)+$/i" class="pf-field form-control" type="text" name="from" size="40" ng-model="entity.data.from" />
+        <span ng-show="renditionform.from.$error.pattern" class="label label-danger">Incorrect Format</span></label>
+    </div>
+    <div class="pf-element">
+      <label><span class="pf-label">Carbon Copy (CC Address)</span>
+        <span class="pf-note">The email is copied to these addresses. This <strong>will</strong> be visible to the recipient.</span>
+        <input ng-pattern="/^(?:(?:(?:&quot;[^&quot;]*&quot; )?<)?\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b>?(?:, ?)?)+$/i" class="pf-field form-control" type="text" name="cc" size="40" ng-model="entity.data.cc" />
+        <span ng-show="renditionform.cc.$error.pattern" class="label label-danger">Incorrect Format</span></label>
+    </div>
+    <div class="pf-element">
+      <label><span class="pf-label">Blind Carbon Copy (BCC Address)</span>
+        <span class="pf-note">The email is copied to these addresses. This <strong>will not</strong> be visible to the recipient.</span>
+        <input ng-pattern="/^(?:(?:(?:&quot;[^&quot;]*&quot; )?<)?\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b>?(?:, ?)?)+$/i" class="pf-field form-control" type="text" name="bcc" size="40" ng-model="entity.data.bcc" />
+        <span ng-show="renditionform.bcc.$error.pattern" class="label label-danger">Incorrect Format</span></label>
+    </div>
+    <div class="pf-element pf-heading">
+      <h3>Content</h3>
+    </div>
+    <div class="pf-element pf-full-width">
+      <label>
+        <span class="pf-label">Subject</span>
+        <span class="pf-group">
+          <span class="pf-field" style="display: block; width: 100%; padding-right: 9px;">
+            <input class="form-control" type="text" name="subject" style="width: 100%;" ng-model="entity.data.subject" />
+          </span>
+        </span>
+      </label>
+    </div>
+    <div class="pf-element pf-full-width">
+      <span class="pf-label">Message Body</span>
+      <div class="pf-clearing" style="height: 300px;">
+        <textarea rows="20" cols="35" ui-codemirror="{
+            lineNumbers: true,
+            lineWrapping : false,
+            mode: 'htmlmixed',
+            matchBrackets: true,
+            autoCloseBrackets: true,
+            matchTags: true,
+            autoCloseTags: true
+          }" style="width: 100%;" name="content" ng-model="entity.data.content"></textarea>
+      </div>
+    </div>
+    <div class="pf-element">
+      Macros let you replace a string with a value that can change. To
+      use them, insert the desired macro string into the content where
+      you would like the macro to appear.
+    </div>
+    <div ng-if="definitions[entity.data.definition].macros" class="pf-element pf-layout-block pf-full-width">
+      <span class="pf-label">Definition Macros</span>
+      <div class="pf-group">
+        <div class="pf-field">
+          <table class="table table-condensed table-bordered">
+            <thead>
+              <tr>
+                <th>Macro String</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="(id, desc) in definitions[entity.data.definition].macros">
+                <td>#{{id}}#</td>
+                <td>{{desc}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="pf-element pf-layout-block pf-full-width">
+      <span class="pf-label">Universal Macros</span>
+      <div class="pf-group">
+        <div class="pf-field">
+          <table class="table table-condensed table-bordered">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Macro String</th>
+                <th>Description</th>
+                <th>Example</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td>#subject#</td>
+                <td>The email subject.</td>
+                <td>N/A</td>
+              </tr>
+              <tr>
+                <td rowspan="3">Site</td>
+                <td>#site_name#</td>
+                <td>The system name.</td>
+                <td>{{examples['site_name']}}</td>
+              </tr>
+              <tr>
+                <td>#site_link#</td>
+                <td>The URL of the site, to be used in a link.</td>
+                <td>{{examples['site_link']}}</td>
+              </tr>
+              <tr>
+                <td rowspan="5">Recipient</td>
+                <td>#to_username#</td>
+                <td>The recipient's username (or groupname).</td>
+                <td>N/A</td>
+              </tr>
+              <tr>
+                <td>#to_name#</td>
+                <td>The recipient's full name.</td>
+                <td>N/A</td>
+              </tr>
+              <tr>
+                <td>#to_first_name#</td>
+                <td>The recipient's first name.</td>
+                <td>N/A</td>
+              </tr>
+              <tr>
+                <td>#to_last_name#</td>
+                <td>The recipient's last name.</td>
+                <td>N/A</td>
+              </tr>
+              <tr>
+                <td>#to_email#</td>
+                <td>The recipient's email.</td>
+                <td>N/A</td>
+              </tr>
+              <tr ng-if="Tilmeld">
+                <td rowspan="5">Current User</td>
+                <td>#username#</td>
+                <td>The current user's username.</td>
+                <td></td>
+              </tr>
+              <tr ng-if="Tilmeld">
+                <td>#name#</td>
+                <td>The current user's full name.</td>
+                <td></td>
+              </tr>
+              <tr ng-if="Tilmeld">
+                <td>#first_name#</td>
+                <td>The current user's first name.</td>
+                <td></td>
+              </tr>
+              <tr ng-if="Tilmeld">
+                <td>#last_name#</td>
+                <td>The current user's last name.</td>
+                <td></td>
+              </tr>
+              <tr ng-if="Tilmeld">
+                <td>#email#</td>
+                <td>The current user's email.</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td rowspan="12">Date/Time</td>
+                <td>#datetime_sort#</td>
+                <td>The date and time. (Sortable)</td>
+                <td>{{examples['datetime_sort']}}</td>
+              </tr>
+              <tr>
+                <td>#datetime_short#</td>
+                <td>The date and time. (Short)</td>
+                <td>{{examples['datetime_short']}}</td>
+              </tr>
+              <tr>
+                <td>#datetime_med#</td>
+                <td>The date and time. (Medium)</td>
+                <td>{{examples['datetime_med']}}</td>
+              </tr>
+              <tr>
+                <td>#datetime_long#</td>
+                <td>The date and time. (Long)</td>
+                <td>{{examples['datetime_long']}}</td>
+              </tr>
+              <tr>
+                <td>#date_sort#</td>
+                <td>The date. (Sortable)</td>
+                <td>{{examples['date_sort']}}</td>
+              </tr>
+              <tr>
+                <td>#date_short#</td>
+                <td>The date. (Short)</td>
+                <td>{{examples['date_short']}}</td>
+              </tr>
+              <tr>
+                <td>#date_med#</td>
+                <td>The date. (Medium)</td>
+                <td>{{examples['date_med']}}</td>
+              </tr>
+              <tr>
+                <td>#date_long#</td>
+                <td>The date. (Long)</td>
+                <td>{{examples['date_long']}}</td>
+              </tr>
+              <tr>
+                <td>#time_sort#</td>
+                <td>The time of day. (Sortable)</td>
+                <td>{{examples['time_sort']}}</td>
+              </tr>
+              <tr>
+                <td>#time_short#</td>
+                <td>The time of day. (Short)</td>
+                <td>{{examples['time_short']}}</td>
+              </tr>
+              <tr>
+                <td>#time_med#</td>
+                <td>The time of day. (Medium)</td>
+                <td>{{examples['time_med']}}</td>
+              </tr>
+              <tr>
+                <td>#time_long#</td>
+                <td>The time of day. (Long)</td>
+                <td>{{examples['time_long']}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <p ng-if="Tilmeld">Care should be taken when using values from the current user, because they will be empty when no user is logged in.</p>
+          <p>The recipient info will automatically be available for registered users if you are using Tilmeld.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf-element panel panel-default button-panel">
+    <div class="panel-body">
+      <input class="pf-button btn btn-primary" type="submit" value="Save" />
+      <span ng-if="success" class="label label-success">Successfully saved!</span>
+    </div>
+  </div>
 </form>

@@ -4,7 +4,7 @@
 $classes = get_declared_classes();
 $definitions = [];
 foreach ($classes as $key => $cur_class) {
-  if (is_subclass_of($cur_class, '\µMailPHP\Definition')) {
+  if (is_subclass_of($cur_class, '\uMailPHP\Definition')) {
     $definitions[$cur_class] = [
       'cname' => $cur_class::$cname,
       'description' => $cur_class::$description,
@@ -16,29 +16,29 @@ foreach ($classes as $key => $cur_class) {
   }
 }
 
-$config = \SciActive\RequirePHP::_('µMailPHPConfig');
+$config = \SciActive\RequirePHP::_('uMailPHPConfig');
 $examples = [
   'site_name' => $config->site_name['value'],
   'site_link' => $config->site_link['value'],
-  'datetime_sort' => \µMailPHP\Mail::formatDate(time(), 'full_sort'),
-  'datetime_short' => \µMailPHP\Mail::formatDate(time(), 'full_short'),
-  'datetime_med' => \µMailPHP\Mail::formatDate(time(), 'full_med'),
-  'datetime_long' => \µMailPHP\Mail::formatDate(time(), 'full_long'),
-  'date_sort' => \µMailPHP\Mail::formatDate(time(), 'date_sort'),
-  'date_short' => \µMailPHP\Mail::formatDate(time(), 'date_short'),
-  'date_med' => \µMailPHP\Mail::formatDate(time(), 'date_med'),
-  'date_long' => \µMailPHP\Mail::formatDate(time(), 'date_long'),
-  'time_sort' => \µMailPHP\Mail::formatDate(time(), 'time_sort'),
-  'time_short' => \µMailPHP\Mail::formatDate(time(), 'time_short'),
-  'time_med' => \µMailPHP\Mail::formatDate(time(), 'time_med'),
-  'time_long' => \µMailPHP\Mail::formatDate(time(), 'time_long')
+  'datetime_sort' => \uMailPHP\Mail::formatDate(time(), 'full_sort'),
+  'datetime_short' => \uMailPHP\Mail::formatDate(time(), 'full_short'),
+  'datetime_med' => \uMailPHP\Mail::formatDate(time(), 'full_med'),
+  'datetime_long' => \uMailPHP\Mail::formatDate(time(), 'full_long'),
+  'date_sort' => \uMailPHP\Mail::formatDate(time(), 'date_sort'),
+  'date_short' => \uMailPHP\Mail::formatDate(time(), 'date_short'),
+  'date_med' => \uMailPHP\Mail::formatDate(time(), 'date_med'),
+  'date_long' => \uMailPHP\Mail::formatDate(time(), 'date_long'),
+  'time_sort' => \uMailPHP\Mail::formatDate(time(), 'time_sort'),
+  'time_short' => \uMailPHP\Mail::formatDate(time(), 'time_short'),
+  'time_med' => \uMailPHP\Mail::formatDate(time(), 'time_med'),
+  'time_long' => \uMailPHP\Mail::formatDate(time(), 'time_long')
 ];
 
 ?>
 <!DOCTYPE html>
 <html ng-app="setupApp">
   <head>
-    <title>µMailPHP Setup App</title>
+    <title>uMailPHP Setup App</title>
     <meta charset="utf-8">
     <script type="text/javascript">
       (function(){
@@ -65,8 +65,8 @@ $examples = [
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
-    <link rel="stylesheet" href="<?php echo htmlspecialchars($sciactiveBaseURL); ?>pform/css/pform.min.css">
-    <link rel="stylesheet" href="<?php echo htmlspecialchars($sciactiveBaseURL); ?>pform/css/pform-bootstrap.min.css">
+    <link rel="stylesheet" href="<?php echo htmlspecialchars($sciactiveBaseURL); ?>pform/css/pform.css">
+    <link rel="stylesheet" href="<?php echo htmlspecialchars($sciactiveBaseURL); ?>pform/css/pform-bootstrap.css">
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/4.11.0/codemirror.min.js"></script>
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/4.11.0/codemirror.min.css">
@@ -103,7 +103,7 @@ $examples = [
   <body>
     <div class="container" ng-controller="MainController">
       <div class="page-header">
-        <h1>µMailPHP Setup App</h1>
+        <h1>uMailPHP Setup App</h1>
       </div>
       <div class="row">
         <div class="col-lg-3">

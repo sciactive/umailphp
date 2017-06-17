@@ -1,11 +1,12 @@
-<?php namespace µMailPHP;
+<?php
+namespace uMailPHP;
 
 /**
  * Example definition class.
  */
 
-class UserVerifyMail extends \µMailPHP\Definition {
-  public static $cname = 'Verify Email';
+class UserVerifyMail extends \uMailPHP\Definition {
+  public static $cname = 'Verify Email (Example)';
   public static $description = 'This email is sent to a new user to let them verify their address.';
   public static $expectsRecipient = true;
   public static $macros = [
@@ -36,6 +37,6 @@ class UserVerifyMail extends \µMailPHP\Definition {
   }
 
   public static function getHTML() {
-    return 'todo';
+    return 'This is an example definition.';
   }
 }

@@ -7,15 +7,14 @@ require '../src/autoload.php';
 
 date_default_timezone_set('America/Los_Angeles');
 
-\SciActive\RequirePHP::_('NymphConfig', [], function(){
-  $nymph_config = include(__DIR__.DIRECTORY_SEPARATOR.'../vendor/sciactive/nymph/conf/defaults.php');
-
-  $nymph_config->MySQL->database['value'] = 'nymph_test';
-  $nymph_config->MySQL->user['value'] = 'nymph_test';
-  $nymph_config->MySQL->password['value'] = 'omgomg';
-
-  return $nymph_config;
-});
+\Nymph\Nymph::configure([
+  'MySQL' => [
+    'host' => '127.0.0.1',
+    'database' => 'nymph_example',
+    'user' => 'nymph_example',
+    'password' => 'omgomg'
+  ]
+]);
 
 $NymphREST = new \Nymph\REST();
 

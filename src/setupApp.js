@@ -13,7 +13,7 @@ angular.module('setupApp', ['ngRoute', 'ui.codemirror'])
   $scope.entities = [];
   $scope.success = null;
 
-  Nymph.getEntities({'class': '\\µMailPHP\\Rendition'}).then(function(entities){
+  Nymph.getEntities({'class': '\\uMailPHP\\Rendition'}).then(function(entities){
     $scope.entities = entities;
     $scope.$apply();
   });
@@ -70,7 +70,7 @@ angular.module('setupApp', ['ngRoute', 'ui.codemirror'])
   $scope.entities = [];
   $scope.success = null;
 
-  Nymph.getEntities({'class': '\\µMailPHP\\Template'}).then(function(entities){
+  Nymph.getEntities({'class': '\\uMailPHP\\Template'}).then(function(entities){
     $scope.entities = entities;
     $scope.$apply();
   });

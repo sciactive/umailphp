@@ -1,24 +1,32 @@
-// Uses AMD or browser globals.
-(function (factory) {
+// Uses AMD, CommonJS, or browser globals.
+(function(root, factory){
+  'use strict';
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as a module.
     define('NymphTemplate', ['NymphEntity'], factory);
+  } else if (typeof exports === 'object' && typeof module !== 'undefined') {
+      // CommonJS
+      module.exports = factory(require('Entity'));
   } else {
     // Browser globals
-    factory(Entity);
+    factory(root.Entity, root);
   }
-}(function(Entity){
-  Template = function(id){
+}(typeof window !== "undefined" ? window : this, function(Entity, context){
+  'use strict';
+  if (typeof context === "undefined") {
+    context = {};
+  }
+  context.Template = function(id){
     this.constructor.call(this, id);
     this.data.enabled = true;
     this.data.replacements = [];
     this.data.ac_other = 1;
   };
-  Template.prototype = new Entity();
+  context.Template.prototype = new Entity();
 
   var thisClass = {
     // === The Name of the Server Class ===
-    class: '\\µMailPHP\\Template',
+    class: '\\uMailPHP\\Template',
 
     // === Class Variables ===
     etype: "umailphp_template",
@@ -34,9 +42,9 @@
   };
   for (var p in thisClass) {
     if (thisClass.hasOwnProperty(p)) {
-      Template.prototype[p] = thisClass[p];
+      context.Template.prototype[p] = thisClass[p];
     }
   }
 
-  return Template;
+  return context.Template;
 }));

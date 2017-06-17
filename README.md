@@ -1,4 +1,4 @@
-umailphp
+µMailPHP
 ========
 
-µMailPHP - PHP email templating system.
+PHP email templating system.

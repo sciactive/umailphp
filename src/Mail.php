@@ -1,9 +1,11 @@
-<?php namespace µMailPHP;
+<?php
+namespace uMailPHP;
+
 /**
  * Mail class.
  *
  * @package uMailPHP
- * @license http://www.gnu.org/licenses/lgpl.html
+ * @license https://www.apache.org/licenses/LICENSE-2.0
  * @author Hunter Perrin <hperrin@gmail.com>
  * @copyright SciActive.com
  * @link http://sciactive.com/
@@ -67,19 +69,19 @@ class Mail {
   public $attachments = [];
 
   /**
-   * @param \µMailPHP\Definition The name of the mail definition class.
+   * @param \uMailPHP\Definition The name of the mail definition class.
    * @param mixed $recipient The recipient's email address, or a recipient object. If left null, the rendition must have a recipient.
    * @param array $macros An associative array of macros. These override macros from the definition.
    * @param string|null $sender The sender's email address. If left null, the rendition or default sender will be used.
-   * @param \µMailPHP\Rendition An optional rendition. If left null, the latest ready rendition will be used. If false, no rendition will be used.
-   * @param \µMailPHP\Template An optional template. If left null, the latest ready template will be used. If false, the default template will be used.
+   * @param \uMailPHP\Rendition An optional rendition. If left null, the latest ready rendition will be used. If false, no rendition will be used.
+   * @param \uMailPHP\Template An optional template. If left null, the latest ready template will be used. If false, the default template will be used.
    */
   public function __construct($definition, $recipient = null, $macros = [], $sender = null, $rendition = null, $template = null) {
-    if (!class_exists($definition) || !is_subclass_of($definition, '\µMailPHP\Definition')) {
+    if (!class_exists($definition) || !is_subclass_of($definition, '\uMailPHP\Definition')) {
       throw new \InvalidArgumentException('Mail definition is required.');
     }
 
-    $config = \SciActive\RequirePHP::_('µMailPHPConfig');
+    $config = \SciActive\RequirePHP::_('uMailPHPConfig');
 
     // Format recipient.
     if ($recipient && is_string($recipient)) {
@@ -89,14 +91,14 @@ class Mail {
     // Find any renditions.
     if ($rendition === null) {
       $renditions = (array) \Nymph\Nymph::getEntities(
-          ['class' => '\µMailPHP\Rendition', 'reverse' => true],
+          ['class' => '\uMailPHP\Rendition', 'reverse' => true],
           ['&',
             'strict' => [
               ['enabled', true],
               ['definition', $definition]
             ]
           ]
-        );
+      );
       foreach ($renditions as $cur_rendition) {
         if ($cur_rendition->ready()) {
           $rendition = $cur_rendition;
@@ -132,7 +134,7 @@ class Mail {
                 ['&',
                   'strict' => ['email', $check_email]
                 ]
-              );
+            );
             if ($user) {
               $recipient = $user;
             } else {
@@ -141,7 +143,7 @@ class Mail {
                   ['&',
                     'strict' => ['email', $check_email]
                   ]
-                );
+              );
               if ($group) {
                 $recipient = $group;
               }
@@ -173,11 +175,11 @@ class Mail {
     // Get the template.
     if ($template === null) {
       $templates = (array) \Nymph\Nymph::getEntities(
-          ['class' => '\µMailPHP\Template', 'reverse' => true],
+          ['class' => '\uMailPHP\Template', 'reverse' => true],
           ['&',
             'strict' => ['enabled', true]
           ]
-        );
+      );
       // Get the first template that's ready.
       foreach ($templates as $cur_template) {
         if ($cur_template->ready()) {
@@ -200,8 +202,8 @@ class Mail {
             '#content#',
             $template->content,
             $template->document
-          )
-      );
+        )
+    );
 
     // Replace macros and search strings.
     foreach ($body as &$cur_field) {
@@ -359,7 +361,7 @@ class Mail {
     $this->headers['Content-Type'] = 'multipart/mixed;boundary="MIME_BOUNDRY"';
     //$this->headers['X-Mailer'] = 'PHP5';
     $this->headers['X-Priority'] = '3';
-    $this->headers['User-Agent'] = 'µMailPHP '.Mail::VERSION;
+    $this->headers['User-Agent'] = 'uMailPHP '.Mail::VERSION;
     // Define some default MIME types
     $this->mimeTypes['doc'] = 'application/msword';
     $this->mimeTypes['pdf'] = 'application/pdf';
@@ -500,7 +502,7 @@ class Mail {
       return false;
     }
 
-    $config = \SciActive\RequirePHP::_('µMailPHPConfig');
+    $config = \SciActive\RequirePHP::_('uMailPHPConfig');
 
     // Headers that must be in the sent message.
     $required_headers = [];

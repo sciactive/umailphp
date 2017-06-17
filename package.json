@@ -1,6 +1,6 @@
 {
   "name": "umailphp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "PHP email templating system.",
   "main": "src/autoload.php",
   "directories": {

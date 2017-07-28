@@ -4,8 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d8f4fbb9ed8d6010ab97fe381fd39146",
-    "content-hash": "ff6f9c20773be9b8f05b6ed05136600c",
+    "content-hash": "dabb9989a1c90a88b195fbb0de66201d",
     "packages": [
         {
             "name": "sciactive/nymph-server",
@@ -61,7 +60,7 @@
                 "postgres",
                 "postgresql"
             ],
-            "time": "2017-06-18 00:00:00"
+            "time": "2017-06-18T00:00:00+00:00"
         },
         {
             "name": "sciactive/requirephp",
@@ -107,7 +106,7 @@
                 "service location",
                 "service locator"
             ],
-            "time": "2015-02-19 00:00:00"
+            "time": "2015-02-19T00:00:00+00:00"
         }
     ],
     "packages-dev": [],

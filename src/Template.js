@@ -7,7 +7,7 @@ export default class Template extends Entity {
 
   static etype = "umailphp_template";
   // The name of the server class
-  static class = "\\uMailPHP\\Template";
+  static class = "uMailPHP\\Template";
 
   // === Constructor ===
 

@@ -7,7 +7,7 @@ export default class Rendition extends Entity {
 
   static etype = "umailphp_rendition";
   // The name of the server class
-  static class = "\\uMailPHP\\Rendition";
+  static class = "uMailPHP\\Rendition";
 
   // === Constructor ===
 

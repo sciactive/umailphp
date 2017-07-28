@@ -18,7 +18,6 @@ namespace uMailPHP;
  */
 class Rendition extends \Nymph\Entity {
   const ETYPE = 'umailphp_rendition';
-  protected $clientClassName = 'Rendition';
 
   public function __construct($id = 0) {
     if (parent::__construct($id) !== null) {

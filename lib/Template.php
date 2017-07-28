@@ -18,7 +18,6 @@ namespace uMailPHP;
  */
 class Template extends \Nymph\Entity {
   const ETYPE = 'umailphp_template';
-  protected $clientClassName = 'Template';
   public $clientEnabledMethods = ['defaultContent'];
 
   public function __construct($id = 0) {

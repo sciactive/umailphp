@@ -1,11 +1,21 @@
 angular.module('setupApp', ['ngRoute', 'ui.codemirror'])
+.service('Nymph', function() {
+  return Nymph.default;
+})
+.service('Rendition', function() {
+  return Rendition.default;
+})
+.service('Template', function() {
+  return Template.default;
+})
+
 .controller('MainController', ['$scope', '$route', '$routeParams', '$location', function ($scope, $route, $routeParams, $location) {
   $scope.$route = $route;
   $scope.$location = $location;
   $scope.$routeParams = $routeParams;
 }])
 
-.controller('RenditionController', ['$scope', '$routeParams', '$timeout', function ($scope, $routeParams, $timeout) {
+.controller('RenditionController', ['$scope', '$routeParams', '$timeout', 'Nymph', 'Rendition', function ($scope, $routeParams, $timeout, Nymph, Rendition) {
   $scope.params = $routeParams;
   $scope.Tilmeld = Tilmeld;
   $scope.definitions = Definitions;
@@ -13,7 +23,7 @@ angular.module('setupApp', ['ngRoute', 'ui.codemirror'])
   $scope.entities = [];
   $scope.success = null;
 
-  Nymph.getEntities({'class': '\\uMailPHP\\Rendition'}).then(function(entities){
+  Nymph.getEntities({'class': Rendition.class}).then(function(entities){
     $scope.entities = entities;
     $scope.$apply();
   });
@@ -63,14 +73,14 @@ angular.module('setupApp', ['ngRoute', 'ui.codemirror'])
   };
 }])
 
-.controller('TemplateController', ['$scope', '$routeParams', '$timeout', function ($scope, $routeParams, $timeout) {
+.controller('TemplateController', ['$scope', '$routeParams', '$timeout', 'Nymph', 'Template', function ($scope, $routeParams, $timeout, Nymph, Template) {
   $scope.params = $routeParams;
   $scope.Tilmeld = Tilmeld;
   $scope.examples = Examples;
   $scope.entities = [];
   $scope.success = null;
 
-  Nymph.getEntities({'class': '\\uMailPHP\\Template'}).then(function(entities){
+  Nymph.getEntities({'class': Template.class}).then(function(entities){
     $scope.entities = entities;
     $scope.$apply();
   });
@@ -112,14 +122,14 @@ angular.module('setupApp', ['ngRoute', 'ui.codemirror'])
 .config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
   $routeProvider
     .when('/', {
-      templateUrl: baseURL+'html/instructions.html'
+      templateUrl: baseURL+'setup/instructions.html'
     })
     .when('/rendition/:entityId?', {
-      templateUrl: baseURL+'html/rendition.html',
+      templateUrl: baseURL+'setup/rendition.html',
       controller: 'RenditionController'
     })
     .when('/template/:entityId?', {
-      templateUrl: baseURL+'html/template.html',
+      templateUrl: baseURL+'setup/template.html',
       controller: 'TemplateController'
     });
 

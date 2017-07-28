@@ -3,7 +3,7 @@ error_reporting(E_ALL);
 
 // Composer autoloader would be fine in an outside project.
 include '../vendor/autoload.php';
-include '../src/autoload.php';
+include '../lib/autoload.php';
 
 date_default_timezone_set('America/Los_Angeles');
 
@@ -23,4 +23,4 @@ include 'UserVerifyMail.php'; // Make sure all of your definition classes are lo
 $baseURL = '../'; // This is the URL of the uMailPHP root.
 $sciactiveBaseURL = '../node_modules/'; // This is the URL of the SciActive libraries.
 $restEndpoint = 'rest.php'; // This is the URL of the Nymph endpoint.
-include '../src/setup.php'; // And this will load the uMailPHP setup app.
+include '../setup/setup.php'; // And this will load the uMailPHP setup app.

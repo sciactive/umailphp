@@ -1,12 +1,15 @@
 {
   "name": "umailphp",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "PHP email templating system.",
   "main": "src/autoload.php",
   "directories": {
     "example": "examples"
   },
   "scripts": {
+    "build": "babel -d lib/ src/",
+    "watch": "babel --watch -d lib/ src/",
+    "prepublish": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -25,7 +28,15 @@
   },
   "homepage": "https://github.com/sciactive/umailphp#readme",
   "dependencies": {
-    "nymph-client": "^1.5.1",
+    "nymph-client": "^1.6.0",
     "pform": "^3.2.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-es2015-modules-umd": "^6.24.1",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-stage-3": "^6.24.1",
+    "babel-watch": "^2.0.7"
   }
 }

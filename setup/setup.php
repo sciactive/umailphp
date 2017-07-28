@@ -53,10 +53,10 @@ $examples = [
       Examples = <?php echo json_encode($examples); ?>;
       Tilmeld = <?php echo json_encode(class_exists('\Tilmeld\User')); ?>;
     </script>
-    <script src="<?php echo htmlspecialchars($sciactiveBaseURL); ?>nymph-client/src/Nymph.js"></script>
-    <script src="<?php echo htmlspecialchars($sciactiveBaseURL); ?>nymph-client/src/Entity.js"></script>
-    <script src="<?php echo htmlspecialchars($baseURL); ?>src/Rendition.js"></script>
-    <script src="<?php echo htmlspecialchars($baseURL); ?>src/Template.js"></script>
+    <script src="<?php echo htmlspecialchars($sciactiveBaseURL); ?>nymph-client/lib/Nymph.js"></script>
+    <script src="<?php echo htmlspecialchars($sciactiveBaseURL); ?>nymph-client/lib/Entity.js"></script>
+    <script src="<?php echo htmlspecialchars($baseURL); ?>lib/Rendition.js"></script>
+    <script src="<?php echo htmlspecialchars($baseURL); ?>lib/Template.js"></script>
 
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-route.js"></script>
@@ -81,7 +81,7 @@ $examples = [
     <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/4.11.0/addon/edit/closebrackets.min.js"></script>
     <script src="https://rawgithub.com/angular-ui/ui-codemirror/bower/ui-codemirror.min.js"></script>
 
-    <script src="<?php echo htmlspecialchars($baseURL); ?>src/setupApp.js"></script>
+    <script src="<?php echo htmlspecialchars($baseURL); ?>setup/setupApp.js"></script>
 
     <style type="text/css">
       form {
@@ -93,10 +93,10 @@ $examples = [
         padding-bottom: 0;
         margin-bottom: 0;
         border-radius: 0;
-        width: 100%;
         border: 0;
         z-index: 100;
         height: 64px;
+        text-align: right;
       }
     </style>
   </head>

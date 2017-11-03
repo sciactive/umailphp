@@ -3,18 +3,18 @@ error_reporting(E_ALL);
 
 // Composer autoloader would be fine in an outside project.
 include '../vendor/autoload.php';
-include '../lib/autoload.php';
+include '../src/autoload.php';
 
 date_default_timezone_set('America/Los_Angeles');
 
 // uMailPHP's config.
 \SciActive\RequirePHP::_('uMailPHPConfig', [], function () {
   $config = include('../conf/defaults.php');
-  $config->site_name['value'] = 'uMailPHP Example Site';
-  $config->site_link['value'] = 'http://localhost/umailphp/';
-  $config->master_address['value'] = 'hperrin@gmail.com';
-  $config->testing_mode['value'] = true;
-  $config->testing_email['value'] = 'hperrin@gmail.com';
+  $config->site_name = 'uMailPHP Example Site';
+  $config->site_link = 'http://localhost/umailphp/';
+  $config->master_address = 'someone@example.com';
+  $config->testing_mode = true;
+  $config->testing_email = 'someone@example.com';
   return $config;
 });
 

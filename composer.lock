@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "dabb9989a1c90a88b195fbb0de66201d",
+    "content-hash": "4d7d1e3b957dd37c8450f8131bf88344",
     "packages": [
         {
             "name": "sciactive/nymph-server",
-            "version": "1.6.0",
+            "version": "2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sciactive/nymph-server.git",
-                "reference": "e6258395fde11b789a67478e0b418c004c54a15d"
+                "reference": "cfa671e4e8cb8a81de7742a9324b51b145199c1f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sciactive/nymph-server/zipball/e6258395fde11b789a67478e0b418c004c54a15d",
-                "reference": "e6258395fde11b789a67478e0b418c004c54a15d",
+                "url": "https://api.github.com/repos/sciactive/nymph-server/zipball/cfa671e4e8cb8a81de7742a9324b51b145199c1f",
+                "reference": "cfa671e4e8cb8a81de7742a9324b51b145199c1f",
                 "shasum": ""
             },
             "require": {
@@ -25,7 +25,7 @@
             },
             "require-dev": {
                 "phpunit/phpunit": "^6.1",
-                "sciactive/hookphp": "~2.0"
+                "sciactive/hookphp": "~2.0.1"
             },
             "type": "library",
             "autoload": {
@@ -60,7 +60,7 @@
                 "postgres",
                 "postgresql"
             ],
-            "time": "2017-06-18T00:00:00+00:00"
+            "time": "2017-10-25T00:00:00+00:00"
         },
         {
             "name": "sciactive/requirephp",

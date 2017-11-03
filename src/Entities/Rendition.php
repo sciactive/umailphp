@@ -1,5 +1,5 @@
 <?php
-namespace uMailPHP;
+namespace uMailPHP\Entities;
 
 /**
  * Rendition class.
@@ -26,18 +26,6 @@ class Rendition extends \Nymph\Entity {
     // Defaults.
     $this->enabled = true;
     $this->ac_other = 1;
-  }
-
-  public function info($type) {
-    switch ($type) {
-      case 'name':
-        return $this->name;
-      case 'type':
-        return 'rendition';
-      case 'types':
-        return 'renditions';
-    }
-    return null;
   }
 
   /**

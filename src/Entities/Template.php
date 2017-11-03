@@ -1,5 +1,5 @@
 <?php
-namespace uMailPHP;
+namespace uMailPHP\Entities;
 
 /**
  * Template class.
@@ -28,18 +28,6 @@ class Template extends \Nymph\Entity {
     $this->enabled = true;
     $this->replacements = [];
     $this->ac_other = 1;
-  }
-
-  public function info($type) {
-    switch ($type) {
-      case 'name':
-        return $this->name;
-      case 'type':
-        return 'template';
-      case 'types':
-        return 'templates';
-    }
-    return null;
   }
 
   public function defaultContent() {

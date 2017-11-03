@@ -1,5 +1,5 @@
 <?php
-namespace uMailPHP;
+namespace MyApp;
 
 /**
  * Example definition class.
@@ -37,6 +37,20 @@ class UserVerifyMail extends \uMailPHP\Definition {
   }
 
   public static function getHTML() {
-    return 'This is an example definition.';
+    return <<<EOF
+(This is an example definition.)<br>
+Hi #to_name#,<br>
+<br>
+Please verify your account by clicking this link:<br>
+<br>
+<a href="#verify_link#">Verify Account</a><br>
+<br>
+If you can't click that link, copy this address into your browser:<br>
+<br>
+#verify_link#<br>
+<br>
+Thanks,<br>
+#site_name#
+EOF;
   }
 }

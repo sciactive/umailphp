@@ -1,33 +1,28 @@
 import Nymph from "Nymph";
 import Entity from "NymphEntity";
 
-export default class Template extends Entity {
+export default class Rendition extends Entity {
 
   // === Static Properties ===
 
-  static etype = "umailphp_template";
+  static etype = "umailphp_rendition";
   // The name of the server class
-  static class = "uMailPHP\\Template";
+  static class = "uMailPHP\\Entities\\Rendition";
 
   // === Constructor ===
 
   constructor(id) {
     super(id);
     this.data.enabled = true;
-    this.data.replacements = [];
     this.data.ac_other = 1;
   }
 
   // === Instance Methods ===
-
-  defaultContent(...args) {
-    return this.serverCall('defaultContent', args);
-  }
 
   isReady(...args) {
     return this.serverCall('ready', args);
   }
 }
 
-Nymph.setEntityClass(Template.class, Template);
-export {Template};
+Nymph.setEntityClass(Rendition.class, Rendition);
+export {Rendition};

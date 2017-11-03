@@ -18,8 +18,8 @@ foreach ($classes as $key => $cur_class) {
 
 $config = \SciActive\RequirePHP::_('uMailPHPConfig');
 $examples = [
-  'site_name' => $config->site_name['value'],
-  'site_link' => $config->site_link['value'],
+  'site_name' => $config->site_name,
+  'site_link' => $config->site_link,
   'datetime_sort' => \uMailPHP\Mail::formatDate(time(), 'full_sort'),
   'datetime_short' => \uMailPHP\Mail::formatDate(time(), 'full_short'),
   'datetime_med' => \uMailPHP\Mail::formatDate(time(), 'full_med'),
@@ -51,10 +51,10 @@ $examples = [
       baseURL = <?php echo json_encode($baseURL); ?>;
       Definitions = <?php echo json_encode($definitions); ?>;
       Examples = <?php echo json_encode($examples); ?>;
-      Tilmeld = <?php echo json_encode(class_exists('\Tilmeld\User')); ?>;
+      Tilmeld = <?php echo json_encode(class_exists('\Tilmeld\Entities\User')); ?>;
     </script>
-    <script src="<?php echo htmlspecialchars($sciactiveBaseURL); ?>nymph-client/lib/Nymph.js"></script>
-    <script src="<?php echo htmlspecialchars($sciactiveBaseURL); ?>nymph-client/lib/Entity.js"></script>
+    <script src="<?php echo htmlspecialchars($sciactiveBaseURL); ?>nymph-client/lib-umd/Nymph.js"></script>
+    <script src="<?php echo htmlspecialchars($sciactiveBaseURL); ?>nymph-client/lib-umd/Entity.js"></script>
     <script src="<?php echo htmlspecialchars($baseURL); ?>lib/Rendition.js"></script>
     <script src="<?php echo htmlspecialchars($baseURL); ?>lib/Template.js"></script>
 
@@ -82,23 +82,6 @@ $examples = [
     <script src="https://rawgithub.com/angular-ui/ui-codemirror/bower/ui-codemirror.min.js"></script>
 
     <script src="<?php echo htmlspecialchars($baseURL); ?>setup/setupApp.js"></script>
-
-    <style type="text/css">
-      form {
-        padding-bottom: 64px;
-      }
-      .button-panel {
-        position: fixed;
-        bottom: 0;
-        padding-bottom: 0;
-        margin-bottom: 0;
-        border-radius: 0;
-        border: 0;
-        z-index: 100;
-        height: 64px;
-        text-align: right;
-      }
-    </style>
   </head>
   <body>
     <div class="container" ng-controller="MainController">

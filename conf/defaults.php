@@ -11,39 +11,39 @@
  */
 
 return (object) [
-  'site_name' => [
-    'cname' => 'Site Name',
-    'description' => 'The name of your site.',
-    'value' => '',
-  ],
-  'site_link' => [
-    'cname' => 'Site Link URL',
-    'description' => 'The URL of your site.',
-    'value' => '',
-  ],
-  'master_address' => [
-    'cname' => 'Master Address',
-    'description' => 'The master address receives all mails that don\'t have a recipient. This includes system information emails.',
-    'value' => '',
-  ],
-  'from_address' => [
-    'cname' => 'From Address',
-    'description' => 'The default address used when sending emails.',
-    'value' => 'noreply@'.$_SERVER['SERVER_NAME'],
-  ],
-  'testing_mode' => [
-    'cname' => 'Testing Mode',
-    'description' => 'In testing mode, emails are not actually sent.',
-    'value' => false,
-  ],
-  'testing_email' => [
-    'cname' => 'Testing Email',
-    'description' => 'In testing mode, if this is not empty, all emails are sent here instead. "*Test* " is prepended to their subject line.',
-    'value' => '',
-  ],
-  'additional_parameters' => [
-    'cname' => 'Additional Parameters',
-    'description' => 'If your emails are not being sent correctly, try removing this option.',
-    'value' => '-femail@example.com',
-  ],
+  /*
+   * Site Name
+   * The name of your site.
+   */
+  'site_name' => '',
+  /*
+   * Site Link URL
+   * The URL of your site.
+   */
+  'site_link' => '',
+  /*
+   * Master Address
+   * The master address receives all mails that don\'t have a recipient. This includes system information emails.
+   */
+  'master_address' => '',
+  /*
+   * From Address
+   * The default address used when sending emails.
+   */
+  'from_address' => 'noreply@'.(isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : 'localhost'),
+  /*
+   * Testing Mode
+   * In testing mode, emails are not actually sent.
+   */
+  'testing_mode' => false,
+  /*
+   * Testing Email
+   * In testing mode, if this is not empty, all emails are sent here instead. "*Test* " is prepended to their subject line.
+   */
+  'testing_email' => '',
+  /*
+   * Additional Parameters
+   * If your emails are not being sent correctly, try removing this option.
+   */
+  'additional_parameters' => '-femail@example.com',
 ];

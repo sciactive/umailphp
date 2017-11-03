@@ -3,7 +3,7 @@
 error_reporting(E_ALL);
 
 require '../vendor/autoload.php';
-require '../lib/autoload.php';
+include '../src/autoload.php';
 
 date_default_timezone_set('America/Los_Angeles');
 

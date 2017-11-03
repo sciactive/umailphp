@@ -4,14 +4,6 @@ namespace uMailPHP;
 /**
  * Mail class.
  *
- * @package uMailPHP
- * @license https://www.apache.org/licenses/LICENSE-2.0
- * @author Hunter Perrin <hperrin@gmail.com>
- * @copyright SciActive.com
- * @link http://sciactive.com/
- */
-
-/**
  * Creates and sends emails.
  *
  * This class supports attachments and custom headers.
@@ -20,9 +12,13 @@ namespace uMailPHP;
  * http://www.devshed.com/cp/bio/Alejandro-Gervasio/
  *
  * @package uMailPHP
+ * @license https://www.apache.org/licenses/LICENSE-2.0
+ * @author Hunter Perrin <hperrin@gmail.com>
+ * @copyright SciActive.com
+ * @link http://sciactive.com/
  */
 class Mail {
-  const VERSION = '0.0.1';
+  const VERSION = '2.0.0';
   /**
    * The sender's email address.
    *
@@ -69,12 +65,12 @@ class Mail {
   public $attachments = [];
 
   /**
-   * @param \uMailPHP\Definition The name of the mail definition class.
+   * @param string The name of the mail definition class.
    * @param mixed $recipient The recipient's email address, or a recipient object. If left null, the rendition must have a recipient.
    * @param array $macros An associative array of macros. These override macros from the definition.
    * @param string|null $sender The sender's email address. If left null, the rendition or default sender will be used.
-   * @param \uMailPHP\Rendition An optional rendition. If left null, the latest ready rendition will be used. If false, no rendition will be used.
-   * @param \uMailPHP\Template An optional template. If left null, the latest ready template will be used. If false, the default template will be used.
+   * @param \uMailPHP\Entities\Rendition An optional rendition. If left null, the latest ready rendition will be used. If false, no rendition will be used.
+   * @param \uMailPHP\Entities\Template An optional template. If left null, the latest ready template will be used. If false, the default template will be used.
    */
   public function __construct($definition, $recipient = null, $macros = [], $sender = null, $rendition = null, $template = null) {
     if (!class_exists($definition) || !is_subclass_of($definition, '\uMailPHP\Definition')) {
@@ -91,7 +87,7 @@ class Mail {
     // Find any renditions.
     if ($rendition === null) {
       $renditions = (array) \Nymph\Nymph::getEntities(
-          ['class' => '\uMailPHP\Rendition', 'reverse' => true],
+          ['class' => '\uMailPHP\Entities\Rendition', 'reverse' => true],
           ['&',
             'strict' => [
               ['enabled', true],
@@ -116,7 +112,7 @@ class Mail {
     // Get the email recipient(s).
     if (!$recipient) {
       // If it's supposed to have a recipient already, report failure.
-      if ($definition::expectsRecipient) {
+      if ($definition::$expectsRecipient) {
         throw new \UnexpectedValueException('This email definition requires a recipient.');
       }
       if ($rendition) {
@@ -155,10 +151,10 @@ class Mail {
         }
       } else {
         // Send to the master address if there's no recipient.
-        if (!$config->master_address['value']) {
+        if (!$config->master_address) {
           throw new \UnexpectedValueException('This email needs a recipient and no master address is set.');
         }
-        $recipient = (object) ['email' => $config->master_address['value']];
+        $recipient = (object) ['email' => $config->master_address];
       }
     }
 
@@ -175,7 +171,7 @@ class Mail {
     // Get the template.
     if ($template === null) {
       $templates = (array) \Nymph\Nymph::getEntities(
-          ['class' => '\uMailPHP\Template', 'reverse' => true],
+          ['class' => '\uMailPHP\Entities\Template', 'reverse' => true],
           ['&',
             'strict' => ['enabled', true]
           ]
@@ -222,7 +218,7 @@ class Mail {
       }
       // Links
       if (strpos($cur_field, '#site_link#') !== false) {
-        $cur_field = str_replace('#site_link#', htmlspecialchars($config->site_link['value']), $cur_field);
+        $cur_field = str_replace('#site_link#', htmlspecialchars($config->site_link), $cur_field);
       }
       // Recipient
       if (strpos($cur_field, '#to_username#') !== false) {
@@ -297,14 +293,14 @@ class Mail {
       }
       // System
       if (strpos($cur_field, '#site_name#') !== false) {
-        $cur_field = str_replace('#site_name#', htmlspecialchars($config->site_name['value']), $cur_field);
+        $cur_field = str_replace('#site_name#', htmlspecialchars($config->site_name), $cur_field);
       }
       // Argument Macros
       foreach ($macros as $cur_name => $cur_value) {
         $cur_field = str_replace("#$cur_name#", $cur_value, $cur_field);
       }
       // Definition Macros
-      foreach ($definition::macros as $cur_name => $cur_desc) {
+      foreach ($definition::$macros as $cur_name => $cur_desc) {
         if (strpos($cur_field, "#$cur_name#") !== false) {
           $cur_field = str_replace("#$cur_name#", $definition::getMacro($cur_name), $cur_field);
         }
@@ -331,7 +327,7 @@ class Mail {
 
     // Get default values for missing parameters.
     if (!isset($sender)) {
-      $sender = $config->from_address['value'];
+      $sender = $config->from_address;
     }
     $destination = isset($recipient->name) ? "\"".str_replace('"', '', $recipient->name)."\" <{$recipient->email}>" : (isset($recipient->email) ? $recipient->email : '');
 
@@ -442,7 +438,7 @@ class Mail {
     foreach ($build_headers as $name => $value) {
       $headers[] = "{$name}: {$value}";
     }
-    return implode("\n", $headers)."\nThis is a multi-part message in MIME format.\n";
+    return implode("\r\n", $headers)."\nThis is a multi-part message in MIME format.\n";
   }
 
   /**
@@ -508,9 +504,9 @@ class Mail {
     $required_headers = [];
 
     // Are we in testing mode?
-    if ($config->testing_mode['value']) {
+    if ($config->testing_mode) {
       // If the testing email is empty, just return true.
-      if (empty($config->testing_email['value'])) {
+      if (empty($config->testing_email)) {
         return true;
       }
       // The testing email isn't empty, so replace stuff now.
@@ -528,7 +524,7 @@ class Mail {
             break;
         }
       }
-      $to = $config->testing_email['value'];
+      $to = $config->testing_email;
       $subject = '*Test* '.$this->subject;
     } else {
       $to = $this->recipient;
@@ -543,7 +539,7 @@ class Mail {
     $message = $this->buildTextPart().$this->buildAttachmentPart()."--MIME_BOUNDRY--\n";
 
     // Now send the mail.
-    return mail($to, $subject, $message, $headers, $config->additional_parameters['value']);
+    return mail($to, $subject, $message, $headers, $config->additional_parameters);
   }
 
   /**
@@ -693,7 +689,7 @@ class Mail {
    * @param DateTimeZone|string|null $timezone The timezone to use for formatting. Defaults to date_default_timezone_get().
    * @return string The formatted date range.
    */
-  public function formatDateRange($startTimestamp, $endTimestamp, $format = null, $timezone = null) {
+  public static function formatDateRange($startTimestamp, $endTimestamp, $format = null, $timezone = null) {
     if (!$format) {
       $format = '{#years# years}{#year# year} {#months# months}{#month# month} {#days# days}{#day# day} {#hours# hours}{#hour# hour} {#minutes# minutes}{#minute# minute} {#seconds# seconds}{#second# second}';
     }
@@ -914,7 +910,7 @@ class Mail {
    * @param int $timestamp The timestamp to format.
    * @return string Fuzzy time string.
    */
-  public function formatFuzzyTime($timestamp) {
+  public static function formatFuzzyTime($timestamp) {
     $now = time();
     $one_minute = 60;
     $one_hour = 3600;
@@ -1028,7 +1024,7 @@ class Mail {
    * @param string $number The phone number to format.
    * @return string The formatted phone number.
    */
-  public function formatPhone($number) {
+  public static function formatPhone($number) {
     if (!isset($number)) {
       return '';
     }

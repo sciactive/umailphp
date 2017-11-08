@@ -56,15 +56,13 @@ date_default_timezone_set('America/Los_Angeles');
 ]);
 
 // uMailPHP's config.
-\SciActive\RequirePHP::_('uMailPHPConfig', [], function () use ($putYourEmailHere) {
-  $config = include('../conf/defaults.php');
-  $config->site_name = 'uMailPHP Example Site';
-  $config->site_link = 'http://localhost/umailphp/';
-  $config->master_address = 'someone@example.com';
-  $config->testing_mode = true;
-  $config->testing_email = $putYourEmailHere;
-  return $config;
-});
+\uMailPHP\Mail::configure([
+  'site_name' => 'uMailPHP Example Site',
+  'site_link' => 'http://localhost/umailphp/',
+  'master_address' => 'someone@example.com',
+  'testing_mode' => true,
+  'testing_email' => $putYourEmailHere,
+]);
 
 include 'UserVerifyMail.php';
 

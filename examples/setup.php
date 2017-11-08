@@ -8,15 +8,13 @@ include '../src/autoload.php';
 date_default_timezone_set('America/Los_Angeles');
 
 // uMailPHP's config.
-\SciActive\RequirePHP::_('uMailPHPConfig', [], function () {
-  $config = include('../conf/defaults.php');
-  $config->site_name = 'uMailPHP Example Site';
-  $config->site_link = 'http://localhost/umailphp/';
-  $config->master_address = 'someone@example.com';
-  $config->testing_mode = true;
-  $config->testing_email = 'someone@example.com';
-  return $config;
-});
+\uMailPHP\Mail::configure([
+  'site_name' => 'uMailPHP Example Site',
+  'site_link' => 'http://localhost/umailphp/',
+  'master_address' => 'someone@example.com',
+  'testing_mode' => true,
+  'testing_email' => 'someone@example.com',
+]);
 
 // This is how you enter the setup app.
 include 'UserVerifyMail.php'; // Make sure all of your definition classes are loaded.

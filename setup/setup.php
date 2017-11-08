@@ -16,10 +16,9 @@ foreach ($classes as $key => $cur_class) {
   }
 }
 
-$config = \SciActive\RequirePHP::_('uMailPHPConfig');
 $examples = [
-  'site_name' => $config->site_name,
-  'site_link' => $config->site_link,
+  'site_name' => \uMailPHP\Mail::$config['site_name'],
+  'site_link' => \uMailPHP\Mail::$config['site_link'],
   'datetime_sort' => \uMailPHP\Mail::formatDate(time(), 'full_sort'),
   'datetime_short' => \uMailPHP\Mail::formatDate(time(), 'full_short'),
   'datetime_med' => \uMailPHP\Mail::formatDate(time(), 'full_med'),

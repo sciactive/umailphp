@@ -18,7 +18,14 @@ namespace uMailPHP;
  * @link http://sciactive.com/
  */
 class Mail {
-  const VERSION = '2.0.0';
+  const VERSION = '2.1.0';
+  /**
+   * A copy of the uMailPHP config.
+   *
+   * @var array
+   * @access public
+   */
+  public static $config;
   /**
    * The sender's email address.
    *
@@ -65,6 +72,31 @@ class Mail {
   public $attachments = [];
 
   /**
+   * Apply configuration to uMailPHP.
+   *
+   * $config should be an associative array of uMailPHP configuration. Use the
+   * following form:
+   *
+   * [
+   *     'testing_mode' => false,
+   *     'site_link' => 'http://example.com/'
+   * ]
+   *
+   * @param array $config An associative array of uMailPHP's configuration.
+   */
+  public static function configure($config = []) {
+    \SciActive\RequirePHP::_('uMailPHPConfig', [], function () use ($config) {
+      $defaults = include dirname(__DIR__).'/conf/defaults.php';
+      $umailphpConfig = [];
+      foreach ($defaults as $curName => $curOption) {
+        $umailphpConfig[$curName] = $curOption;
+      }
+      return array_replace($umailphpConfig, $config);
+    });
+    self::$config = \SciActive\RequirePHP::_('uMailPHPConfig');
+  }
+
+  /**
    * @param string The name of the mail definition class.
    * @param mixed $recipient The recipient's email address, or a recipient object. If left null, the rendition must have a recipient.
    * @param array $macros An associative array of macros. These override macros from the definition.
@@ -76,8 +108,6 @@ class Mail {
     if (!class_exists($definition) || !is_subclass_of($definition, '\uMailPHP\Definition')) {
       throw new \InvalidArgumentException('Mail definition is required.');
     }
-
-    $config = \SciActive\RequirePHP::_('uMailPHPConfig');
 
     // Format recipient.
     if ($recipient && is_string($recipient)) {
@@ -151,10 +181,10 @@ class Mail {
         }
       } else {
         // Send to the master address if there's no recipient.
-        if (!$config->master_address) {
+        if (!Mail::$config['master_address']) {
           throw new \UnexpectedValueException('This email needs a recipient and no master address is set.');
         }
-        $recipient = (object) ['email' => $config->master_address];
+        $recipient = (object) ['email' => Mail::$config['master_address']];
       }
     }
 
@@ -218,7 +248,7 @@ class Mail {
       }
       // Links
       if (strpos($cur_field, '#site_link#') !== false) {
-        $cur_field = str_replace('#site_link#', htmlspecialchars($config->site_link), $cur_field);
+        $cur_field = str_replace('#site_link#', htmlspecialchars(Mail::$config['site_link']), $cur_field);
       }
       // Recipient
       if (strpos($cur_field, '#to_username#') !== false) {
@@ -293,7 +323,7 @@ class Mail {
       }
       // System
       if (strpos($cur_field, '#site_name#') !== false) {
-        $cur_field = str_replace('#site_name#', htmlspecialchars($config->site_name), $cur_field);
+        $cur_field = str_replace('#site_name#', htmlspecialchars(Mail::$config['site_name']), $cur_field);
       }
       // Argument Macros
       foreach ($macros as $cur_name => $cur_value) {
@@ -327,7 +357,7 @@ class Mail {
 
     // Get default values for missing parameters.
     if (!isset($sender)) {
-      $sender = $config->from_address;
+      $sender = Mail::$config['from_address'];
     }
     $destination = isset($recipient->name) ? "\"".str_replace('"', '', $recipient->name)."\" <{$recipient->email}>" : (isset($recipient->email) ? $recipient->email : '');
 
@@ -498,15 +528,13 @@ class Mail {
       return false;
     }
 
-    $config = \SciActive\RequirePHP::_('uMailPHPConfig');
-
     // Headers that must be in the sent message.
     $required_headers = [];
 
     // Are we in testing mode?
-    if ($config->testing_mode) {
+    if (Mail::$config['testing_mode']) {
       // If the testing email is empty, just return true.
-      if (empty($config->testing_email)) {
+      if (empty(Mail::$config['testing_email'])) {
         return true;
       }
       // The testing email isn't empty, so replace stuff now.
@@ -524,7 +552,7 @@ class Mail {
             break;
         }
       }
-      $to = $config->testing_email;
+      $to = Mail::$config['testing_email'];
       $subject = '*Test* '.$this->subject;
     } else {
       $to = $this->recipient;
@@ -539,7 +567,7 @@ class Mail {
     $message = $this->buildTextPart().$this->buildAttachmentPart()."--MIME_BOUNDRY--\n";
 
     // Now send the mail.
-    return mail($to, $subject, $message, $headers, $config->additional_parameters);
+    return mail($to, $subject, $message, $headers, Mail::$config['additional_parameters']);
   }
 
   /**

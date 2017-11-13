@@ -1,6 +1,6 @@
 {
   "name": "umailphp",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "PHP email templating system.",
   "directories": {
     "example": "examples"

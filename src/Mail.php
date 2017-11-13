@@ -18,7 +18,7 @@ namespace uMailPHP;
  * @link http://sciactive.com/
  */
 class Mail {
-  const VERSION = '2.1.0';
+  const VERSION = '2.1.1';
   /**
    * A copy of the uMailPHP config.
    *
@@ -217,7 +217,8 @@ class Mail {
     }
     // If there is no template, use a default one.
     if (!$template) {
-      $template = new Template();
+      $template = new Entities\Template();
+      $template->defaultContent();
     }
 
     // Build the body of the email.

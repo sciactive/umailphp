@@ -34,10 +34,10 @@ class Template extends \Nymph\Entity {
     $this->content = <<<EOF
 <div style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; color: #3A3A3A;">
   <table width="100%" cellpadding="0" cellspacing="0" bgcolor="#ffffff" align="center" border="0">
-    <tr><td valign="top" style="color:#000; font-size: 20px; font-weight: bold; text-align: left; line-height: 17px; background-color: #5baa45;">
-      <div align="left" style="background: #5baa45;">
+    <tr><td valign="top" style="color:#000; font-size: 20px; font-weight: bold; text-align: left; line-height: 17px; background-color: #C2E2FF;">
+      <div align="left" style="background: #C2E2FF;">
         <table class="table" width="600" cellpadding="0" cellspacing="0" align="center" border="0"><tr><td valign="top" style="text-align: left;">
-          <div align="left" style="padding-top: 7px; padding-bottom: 9px"><a href="#site_link#">#system_name#</a></div>
+          <div align="left" style="padding-top: 7px; padding-bottom: 9px"><a href="#site_link#">#site_name#</a></div>
         </td></tr></table>
       </div>
     </td></tr>

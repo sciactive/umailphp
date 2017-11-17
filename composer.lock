@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a68cecdfbd2a1a92887223bcb21b6662",
+    "content-hash": "4cdfb69e4843d548360e3922449dbb56",
     "packages": [
         {
             "name": "sciactive/nymph-server",

@@ -42,7 +42,6 @@
     }
   },
   "require": {
-    "sciactive/requirephp": "~1.3",
     "sciactive/nymph-server": "~2.2.0"
   }
 }

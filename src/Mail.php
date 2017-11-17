@@ -85,15 +85,8 @@ class Mail {
    * @param array $config An associative array of uMailPHP's configuration.
    */
   public static function configure($config = []) {
-    \SciActive\RequirePHP::_('uMailPHPConfig', [], function () use ($config) {
-      $defaults = include dirname(__DIR__).'/conf/defaults.php';
-      $umailphpConfig = [];
-      foreach ($defaults as $curName => $curOption) {
-        $umailphpConfig[$curName] = $curOption;
-      }
-      return array_replace($umailphpConfig, $config);
-    });
-    self::$config = \SciActive\RequirePHP::_('uMailPHPConfig');
+    $defaults = include dirname(__DIR__).'/conf/defaults.php';
+    self::$config = array_replace($defaults, $config);
   }
 
   /**

@@ -10,7 +10,7 @@
  * @link http://sciactive.com/
  */
 
-return (object) [
+return [
   /*
    * Site Name
    * The name of your site.

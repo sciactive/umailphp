@@ -4,28 +4,25 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "4cdfb69e4843d548360e3922449dbb56",
+    "content-hash": "1287b6409be85d8f2cc467d60b720770",
     "packages": [
         {
             "name": "sciactive/nymph-server",
-            "version": "2.2.0",
+            "version": "3.0.0-beta.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sciactive/nymph-server.git",
-                "reference": "cfa671e4e8cb8a81de7742a9324b51b145199c1f"
+                "reference": "b517dd5fdbb59d3ab326d9322a006cd1ef0eac26"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sciactive/nymph-server/zipball/cfa671e4e8cb8a81de7742a9324b51b145199c1f",
-                "reference": "cfa671e4e8cb8a81de7742a9324b51b145199c1f",
+                "url": "https://api.github.com/repos/sciactive/nymph-server/zipball/b517dd5fdbb59d3ab326d9322a006cd1ef0eac26",
+                "reference": "b517dd5fdbb59d3ab326d9322a006cd1ef0eac26",
                 "shasum": ""
-            },
-            "require": {
-                "sciactive/requirephp": "~1.3"
             },
             "require-dev": {
                 "phpunit/phpunit": "^6.1",
-                "sciactive/hookphp": "~2.0.1"
+                "sciactive/hookphp": "~2.0.2"
             },
             "type": "library",
             "autoload": {
@@ -60,59 +57,15 @@
                 "postgres",
                 "postgresql"
             ],
-            "time": "2017-10-25T00:00:00+00:00"
-        },
-        {
-            "name": "sciactive/requirephp",
-            "version": "1.3.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/sciactive/requirephp.git",
-                "reference": "3147a999d1f9a1d880223603a9d0a848334ee587"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/sciactive/requirephp/zipball/3147a999d1f9a1d880223603a9d0a848334ee587",
-                "reference": "3147a999d1f9a1d880223603a9d0a848334ee587",
-                "shasum": ""
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "SciActive\\": "src/"
-                },
-                "psr-4": {
-                    "SciActive\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Apache-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "Hunter Perrin",
-                    "email": "hunter@sciactive.com",
-                    "homepage": "https://github.com/hperrin",
-                    "role": "Developer"
-                }
-            ],
-            "description": "An implementation of dependency injection (like RequireJS) in PHP.",
-            "homepage": "http://requirephp.org/",
-            "keywords": [
-                "amd",
-                "dependency injection",
-                "dependency injector",
-                "service location",
-                "service locator"
-            ],
-            "time": "2015-02-19T00:00:00+00:00"
+            "time": "2017-11-16T00:00:00+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
-    "minimum-stability": "stable",
-    "stability-flags": [],
+    "minimum-stability": "beta",
+    "stability-flags": {
+        "sciactive/nymph-server": 10
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

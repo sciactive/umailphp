@@ -1,6 +1,6 @@
 {
   "name": "umailphp",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "description": "PHP email templating system.",
   "directories": {
     "example": "examples"
@@ -27,8 +27,8 @@
   },
   "homepage": "https://github.com/sciactive/umailphp#readme",
   "dependencies": {
-    "nymph-client": "^2.2.0",
-    "pform": "^3.2.2"
+    "nymph-client": "^3.0.1",
+    "pform": "^3.3.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

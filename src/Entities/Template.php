@@ -89,6 +89,12 @@ EOF;
     if (!isset($this->name)) {
       return false;
     }
+    if (
+        class_exists('\Tilmeld\Tilmeld')
+        && !\Tilmeld\Tilmeld::gatekeeper('umailphp/admin')
+      ) {
+      return false;
+    }
     return parent::save();
   }
 

@@ -1,17 +1,9 @@
-import Nymph from "Nymph";
-import Entity from "NymphEntity";
+import {Nymph, Entity} from 'nymph-client';
 
-export default class Template extends Entity {
-
-  // === Static Properties ===
-
-  static etype = "umailphp_template";
-  // The name of the server class
-  static class = "uMailPHP\\Entities\\Template";
-
+export class Template extends Entity {
   // === Constructor ===
 
-  constructor(id) {
+  constructor (id) {
     super(id);
     this.data.enabled = true;
     this.data.replacements = [];
@@ -20,14 +12,21 @@ export default class Template extends Entity {
 
   // === Instance Methods ===
 
-  defaultContent(...args) {
+  defaultContent (...args) {
     return this.serverCall('defaultContent', args);
   }
 
-  isReady(...args) {
+  isReady (...args) {
     return this.serverCall('ready', args);
   }
 }
 
+// === Static Properties ===
+
+Template.etype = 'umailphp_template';
+// The name of the server class
+Template.class = 'uMailPHP\\Entities\\Template';
+
 Nymph.setEntityClass(Template.class, Template);
-export {Template};
+
+export default Template;

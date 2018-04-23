@@ -636,7 +636,7 @@ class Mail {
     try {
       $date = new \DateTime(gmdate('c', (int) $timestamp));
       if (isset($timezone)) {
-        if ((object) $timezone !== $timezone) {
+        if (!is_object($timezone)) {
           $timezone = new \DateTimeZone($timezone);
         }
         $date->setTimezone($timezone);
@@ -728,7 +728,7 @@ class Mail {
       $start_date = new DateTime(gmdate('c', (int) $startTimestamp));
       $end_date = new DateTime(gmdate('c', (int) $endTimestamp));
       if (isset($timezone)) {
-        if ((object) $timezone !== $timezone) {
+        if (!is_object($timezone)) {
           $timezone = new DateTimeZone($timezone);
         }
         $start_date->setTimezone($timezone);
@@ -862,7 +862,7 @@ class Mail {
       // Create a date object from the timestamp.
       $start_date = new DateTime(gmdate('c', (int) $startTimestamp));
       if (isset($timezone)) {
-        if ((object) $timezone !== $timezone) {
+        if (!is_object($timezone)) {
           $timezone = new DateTimeZone($timezone);
         }
         $start_date->setTimezone($timezone);
@@ -891,7 +891,7 @@ class Mail {
       // Create a date object from the timestamp.
       $start_date = new DateTime(gmdate('c', (int) $startTimestamp));
       if (isset($timezone)) {
-        if ((object) $timezone !== $timezone) {
+        if (!is_object($timezone)) {
           $timezone = new DateTimeZone($timezone);
         }
         $start_date->setTimezone($timezone);

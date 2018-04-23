@@ -1,12 +1,12 @@
 angular.module('setupApp', ['ngRoute', 'ui.codemirror'])
 .service('Nymph', function() {
-  return Nymph.default;
+  return nymphClient.Nymph;
 })
 .service('Rendition', function() {
-  return Rendition.default;
+  return umailphp.Rendition;
 })
 .service('Template', function() {
-  return Template.default;
+  return umailphp.Template;
 })
 
 .controller('MainController', ['$scope', '$route', '$routeParams', '$location', function ($scope, $route, $routeParams, $location) {

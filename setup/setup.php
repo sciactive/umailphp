@@ -52,10 +52,13 @@ $examples = [
       Examples = <?php echo json_encode($examples); ?>;
       Tilmeld = <?php echo json_encode(class_exists('\Tilmeld\Entities\User')); ?>;
     </script>
-    <script src="<?php echo htmlspecialchars($sciactiveBaseURL); ?>nymph-client/lib-umd/Nymph.js"></script>
-    <script src="<?php echo htmlspecialchars($sciactiveBaseURL); ?>nymph-client/lib-umd/Entity.js"></script>
-    <script src="<?php echo htmlspecialchars($baseURL); ?>lib/Rendition.js"></script>
-    <script src="<?php echo htmlspecialchars($baseURL); ?>lib/Template.js"></script>
+    <script src="<?php echo htmlspecialchars($sciactiveBaseURL); ?>nymph-client/lib/Nymph.js"></script>
+    <script src="<?php echo htmlspecialchars($sciactiveBaseURL); ?>nymph-client/lib/Entity.js"></script>
+    <script src="<?php echo htmlspecialchars($sciactiveBaseURL); ?>nymph-client/lib/PubSub.js"></script>
+    <script src="<?php echo htmlspecialchars($sciactiveBaseURL); ?>nymph-client/lib/nymph-client.js"></script>
+    <script src="<?php echo htmlspecialchars($baseURL); ?>lib/Entities/Rendition.js"></script>
+    <script src="<?php echo htmlspecialchars($baseURL); ?>lib/Entities/Template.js"></script>
+    <script src="<?php echo htmlspecialchars($baseURL); ?>lib/umailphp.js"></script>
 
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-route.js"></script>

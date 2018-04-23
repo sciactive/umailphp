@@ -1,17 +1,9 @@
-import Nymph from "Nymph";
-import Entity from "NymphEntity";
+import {Nymph, Entity} from 'nymph-client';
 
-export default class Rendition extends Entity {
-
-  // === Static Properties ===
-
-  static etype = "umailphp_rendition";
-  // The name of the server class
-  static class = "uMailPHP\\Entities\\Rendition";
-
+export class Rendition extends Entity {
   // === Constructor ===
 
-  constructor(id) {
+  constructor (id) {
     super(id);
     this.data.enabled = true;
     this.data.ac_other = 1;
@@ -19,10 +11,18 @@ export default class Rendition extends Entity {
 
   // === Instance Methods ===
 
-  isReady(...args) {
+  isReady (...args) {
     return this.serverCall('ready', args);
   }
 }
 
+// === Static Properties ===
+
+Rendition.etype = 'umailphp_rendition';
+// The name of the server class
+Rendition.class = 'uMailPHP\\Entities\\Rendition';
+
+
 Nymph.setEntityClass(Rendition.class, Rendition);
-export {Rendition};
+
+export default Rendition;

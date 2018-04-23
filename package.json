@@ -1,16 +1,24 @@
 {
   "name": "umailphp",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "PHP email templating system.",
+  "main": "lib/umailphp.js",
+  "browser": "src/umailphp.js",
   "directories": {
+    "lib": "lib",
     "example": "examples"
   },
   "scripts": {
-    "build": "babel -d lib/ src/Entities/",
-    "watch": "babel --watch -d lib/ src/Entities/",
+    "build": "babel -d lib/ src/",
+    "watch": "babel --watch -d lib/ src/",
     "prepare": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "files": [
+    "lib",
+    "src",
+    "setup"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sciactive/umailphp.git"
@@ -27,12 +35,11 @@
   },
   "homepage": "https://github.com/sciactive/umailphp#readme",
   "dependencies": {
-    "nymph-client": "^3.0.1",
-    "pform": "^3.3.0"
+    "nymph-client": "^4.0.0-beta.1",
+    "pform": "^3.3"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-es2015-modules-umd": "^6.24.1",
     "babel-preset-env": "^1.6.1",
     "babel-preset-stage-3": "^6.24.1"

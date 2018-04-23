@@ -1,8 +1,8 @@
 {
   "name": "sciactive/umailphp",
   "description": "A PHP email templating system.",
-  "version": "2.2.0",
-  "time": "2017-11-16",
+  "version": "2.3.0",
+  "time": "2018-04-23",
   "homepage": "http://umailphp.org/",
   "type": "library",
   "authors": [

@@ -1,8 +1,8 @@
 {
   "name": "sciactive/umailphp",
   "description": "An email templating system for Nymph.",
-  "version": "2.3.0",
-  "time": "2018-04-23",
+  "version": "2.4.0",
+  "time": "2018-05-14",
   "homepage": "http://umailphp.org/",
   "type": "library",
   "authors": [

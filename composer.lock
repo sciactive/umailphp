@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b1d13d94240a204434aa545b665c9455",
+    "content-hash": "48d1e56746858f6e55d88be3b0954231",
     "packages": [
         {
             "name": "sciactive/nymph-server",
-            "version": "3.0.0-beta.12",
+            "version": "3.0.0-beta.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sciactive/nymph-server.git",
-                "reference": "ce1e4dc4b7f03e18f041d02b8a58754cbbf69b5e"
+                "reference": "b98e9b07878eb976ad711fd3551217dfc7eb1270"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sciactive/nymph-server/zipball/ce1e4dc4b7f03e18f041d02b8a58754cbbf69b5e",
-                "reference": "ce1e4dc4b7f03e18f041d02b8a58754cbbf69b5e",
+                "url": "https://api.github.com/repos/sciactive/nymph-server/zipball/b98e9b07878eb976ad711fd3551217dfc7eb1270",
+                "reference": "b98e9b07878eb976ad711fd3551217dfc7eb1270",
                 "shasum": ""
             },
             "require-dev": {
@@ -58,7 +58,7 @@
                 "postgres",
                 "postgresql"
             ],
-            "time": "2018-05-07T00:00:00+00:00"
+            "time": "2018-05-14T00:00:00+00:00"
         }
     ],
     "packages-dev": [],

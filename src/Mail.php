@@ -16,7 +16,7 @@
  * @link http://umailphp.org/
  */
 class Mail {
-  const VERSION = '2.1.1';
+  const VERSION = '2.4.0';
   /**
    * A copy of the uMailPHP config.
    *

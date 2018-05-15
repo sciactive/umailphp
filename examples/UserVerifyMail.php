@@ -1,10 +1,8 @@
-<?php
-namespace MyApp;
+<?php namespace MyApp;
 
 /**
  * Example definition class.
  */
-
 class UserVerifyMail extends \uMailPHP\Definition {
   public static $cname = 'Verify Email (Example)';
   public static $description = 'This email is sent to a new user to let them verify their address.';

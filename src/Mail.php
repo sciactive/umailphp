@@ -1,5 +1,4 @@
-<?php
-namespace uMailPHP;
+<?php namespace uMailPHP;
 
 /**
  * Mail class.
@@ -11,11 +10,10 @@ namespace uMailPHP;
  * This class is based on a class by Alejandro Gervasio
  * http://www.devshed.com/cp/bio/Alejandro-Gervasio/
  *
- * @package uMailPHP
  * @license https://www.apache.org/licenses/LICENSE-2.0
  * @author Hunter Perrin <hperrin@gmail.com>
  * @copyright SciActive.com
- * @link http://sciactive.com/
+ * @link http://umailphp.org/
  */
 class Mail {
   const VERSION = '2.1.1';

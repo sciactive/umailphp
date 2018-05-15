@@ -1,20 +1,12 @@
-<?php
-namespace uMailPHP\Entities;
+<?php namespace uMailPHP\Entities;
 
 /**
  * Rendition class.
  *
- * @package uMailPHP
  * @license https://www.apache.org/licenses/LICENSE-2.0
  * @author Hunter Perrin <hperrin@gmail.com>
  * @copyright SciActive.com
- * @link http://sciactive.com/
- */
-
-/**
- * A rendition.
- *
- * @package uMailPHP
+ * @link http://umailphp.org/
  */
 class Rendition extends \Nymph\Entity {
   const ETYPE = 'umailphp_rendition';

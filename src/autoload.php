@@ -1,14 +1,12 @@
-<?php
-namespace uMailPHP;
+<?php namespace uMailPHP;
 
 /**
  * Autoload uMailPHP classes.
  *
- * @package uMailPHP
  * @license https://www.apache.org/licenses/LICENSE-2.0
  * @author Hunter Perrin <hperrin@gmail.com>
  * @copyright SciActive.com
- * @link http://sciactive.com/
+ * @link http://umailphp.org/
  */
 
 spl_autoload_register(function ($class) {

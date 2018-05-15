@@ -1,7 +1,7 @@
 {
   "name": "umailphp",
   "version": "2.3.0",
-  "description": "PHP email templating system.",
+  "description": "An email templating system for Nymph.",
   "main": "lib/umailphp.js",
   "browser": "src/umailphp.js",
   "directories": {
@@ -15,6 +15,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "files": [
+    "conf",
     "lib",
     "src",
     "setup"
@@ -35,13 +36,13 @@
   },
   "homepage": "https://github.com/sciactive/umailphp#readme",
   "dependencies": {
-    "nymph-client": "^4.0.0-beta.1",
+    "nymph-client": "^4.0.0-beta.6",
     "pform": "^3.3"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-plugin-transform-es2015-modules-umd": "^6.24.1",
-    "babel-preset-env": "^1.6.1",
+    "babel-preset-env": "^1.7.0",
     "babel-preset-stage-3": "^6.24.1"
   }
 }

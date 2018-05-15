@@ -19,7 +19,7 @@ class Template extends \Nymph\Entity {
     // Defaults.
     $this->enabled = true;
     $this->replacements = [];
-    $this->ac_other = 1;
+    $this->acOther = 1;
   }
 
   public function defaultContent() {
@@ -88,17 +88,5 @@ EOF;
       return false;
     }
     return parent::save();
-  }
-
-  /**
-   * Determine if this template is ready to use.
-   *
-   * @return bool True if the template is ready, false otherwise.
-   */
-  public function ready() {
-    if (!$this->enabled) {
-      return false;
-    }
-    return true;
   }
 }

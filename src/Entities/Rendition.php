@@ -17,7 +17,7 @@ class Rendition extends \Nymph\Entity {
     }
     // Defaults.
     $this->enabled = true;
-    $this->ac_other = 1;
+    $this->acOther = 1;
   }
 
   /**
@@ -35,30 +35,5 @@ class Rendition extends \Nymph\Entity {
       return false;
     }
     return parent::save();
-  }
-
-  /**
-   * Print a form to edit the rendition.
-   * @return module The form's module.
-   */
-  public function printForm() {
-    $module = new module('com_mailer', 'rendition/form', 'content');
-    $module->entity = $this;
-
-    return $module;
-  }
-
-  /**
-   * Determine if this rendition is ready to use.
-   *
-   * This function will check the conditions of the rendition.
-   *
-   * @return bool True if the rendition is ready, false otherwise.
-   */
-  public function ready() {
-    if (!$this->enabled) {
-      return false;
-    }
-    return true;
   }
 }

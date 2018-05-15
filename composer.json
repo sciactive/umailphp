@@ -1,6 +1,6 @@
 {
   "name": "sciactive/umailphp",
-  "description": "A PHP email templating system.",
+  "description": "An email templating system for Nymph.",
   "version": "2.3.0",
   "time": "2018-04-23",
   "homepage": "http://umailphp.org/",

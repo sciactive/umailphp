@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "sciactive/nymph-server",
-            "version": "3.0.0-beta.8",
+            "version": "3.0.0-beta.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sciactive/nymph-server.git",
-                "reference": "b0c341744aa44d3e2fc3039eabcf25cc5ab4035b"
+                "reference": "ce1e4dc4b7f03e18f041d02b8a58754cbbf69b5e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sciactive/nymph-server/zipball/b0c341744aa44d3e2fc3039eabcf25cc5ab4035b",
-                "reference": "b0c341744aa44d3e2fc3039eabcf25cc5ab4035b",
+                "url": "https://api.github.com/repos/sciactive/nymph-server/zipball/ce1e4dc4b7f03e18f041d02b8a58754cbbf69b5e",
+                "reference": "ce1e4dc4b7f03e18f041d02b8a58754cbbf69b5e",
                 "shasum": ""
             },
             "require-dev": {
@@ -58,7 +58,7 @@
                 "postgres",
                 "postgresql"
             ],
-            "time": "2018-04-23T00:00:00+00:00"
+            "time": "2018-05-07T00:00:00+00:00"
         }
     ],
     "packages-dev": [],

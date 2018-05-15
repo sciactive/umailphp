@@ -92,8 +92,8 @@ class Mail {
    * @param mixed $recipient The recipient's email address, or a recipient object. If left null, the rendition must have a recipient.
    * @param array $macros An associative array of macros. These override macros from the definition.
    * @param string|null $sender The sender's email address. If left null, the rendition or default sender will be used.
-   * @param \uMailPHP\Entities\Rendition An optional rendition. If left null, the latest ready rendition will be used. If false, no rendition will be used.
-   * @param \uMailPHP\Entities\Template An optional template. If left null, the latest ready template will be used. If false, the default template will be used.
+   * @param \uMailPHP\Entities\Rendition An optional rendition. If left null, the last modified, enabled rendition will be used. If false, no rendition will be used.
+   * @param \uMailPHP\Entities\Template An optional template. If left null, the last modified, enabled template will be used. If false, the default template will be used.
    */
   public function __construct($definition, $recipient = null, $macros = [], $sender = null, $rendition = null, $template = null) {
     if (!class_exists($definition) || !is_subclass_of($definition, '\uMailPHP\Definition')) {
@@ -107,8 +107,12 @@ class Mail {
 
     // Find any renditions.
     if ($rendition === null) {
-      $renditions = (array) \Nymph\Nymph::getEntities(
-          ['class' => '\uMailPHP\Entities\Rendition', 'reverse' => true],
+      $rendition = \Nymph\Nymph::getEntity(
+          [
+            'class' => '\uMailPHP\Entities\Rendition',
+            'sort' => 'mdate',
+            'reverse' => true
+          ],
           ['&',
             'strict' => [
               ['enabled', true],
@@ -116,13 +120,6 @@ class Mail {
             ]
           ]
       );
-      foreach ($renditions as $cur_rendition) {
-        if ($cur_rendition->ready()) {
-          $rendition = $cur_rendition;
-          break;
-        }
-      }
-      unset($renditions, $cur_rendition);
     }
 
     // Get the email sender.
@@ -191,20 +188,16 @@ class Mail {
 
     // Get the template.
     if ($template === null) {
-      $templates = (array) \Nymph\Nymph::getEntities(
-          ['class' => '\uMailPHP\Entities\Template', 'reverse' => true],
+      $template = \Nymph\Nymph::getEntity(
+          [
+            'class' => '\uMailPHP\Entities\Template',
+            'sort' => 'mdate',
+            'reverse' => true
+          ],
           ['&',
             'strict' => ['enabled', true]
           ]
       );
-      // Get the first template that's ready.
-      foreach ($templates as $cur_template) {
-        if ($cur_template->ready()) {
-          $template = $cur_template;
-          break;
-        }
-      }
-      unset($templates, $cur_template);
     }
     // If there is no template, use a default one.
     if (!$template) {

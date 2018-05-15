@@ -7,7 +7,7 @@ export class Template extends Entity {
     super(id);
     this.data.enabled = true;
     this.data.replacements = [];
-    this.data.ac_other = 1;
+    this.data.acOther = 1;
   }
 
   // === Instance Methods ===
@@ -15,17 +15,12 @@ export class Template extends Entity {
   defaultContent (...args) {
     return this.serverCall('defaultContent', args);
   }
-
-  isReady (...args) {
-    return this.serverCall('ready', args);
-  }
 }
 
 // === Static Properties ===
 
-Template.etype = 'umailphp_template';
 // The name of the server class
-Template.class = 'uMailPHP\\Entities\\Template';
+Template.class = '\\uMailPHP\\Entities\\Template';
 
 Nymph.setEntityClass(Template.class, Template);
 

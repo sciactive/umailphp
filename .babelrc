@@ -4,6 +4,10 @@
     "stage-3"
   ],
   "plugins": [
-    "transform-es2015-modules-umd"
+    ["transform-es2015-modules-umd", {
+      "globals": {
+        "nymph-client": "NymphClient"
+      }
+    }]
   ]
 }
